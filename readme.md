@@ -14,7 +14,7 @@ A personal LRS can be considered as a "personal cloud" service, as it allows ind
 
 ## Technical usage scenarios & Features
 
-*See "[BB info for use cases (WP2)](https://docs.google.com/spreadsheets/d/1oKWCe0XqRJ1d-wZfKnFtZb2fS0NetFMEXX4OWSyiwDU/edit#gid=1137874968)" spreadsheet.*
+*See [BB info for use cases (WP2)](https://docs.google.com/spreadsheets/d/1oKWCe0XqRJ1d-wZfKnFtZb2fS0NetFMEXX4OWSyiwDU/edit#gid=1137874968) spreadsheet.*
 
 **Key functionalities:**
 
@@ -71,7 +71,7 @@ Students can permanently (or not) share their learning traces with an external L
   - "In the PLRS frontend, the learner selects the data he wants to share with the chosen external LRS."
   - "PLRS synchronizes with target LRS"
 
-**- Local access to data for decentralized AI training** 
+- **Local access to data for decentralized AI training** 
 Users can give local access to their data to train model on them using a decentralized AI training approach.. This makes it possible to run computation on the data locally (within the PLRS) and only return the result. This way learner data do not exit their PLRS and limit privacy issues associated with sharing data externally. Path: 
   - "In the PLRS frontend, learner selects the data he wants to give local access to run an algorithm on it"
   - "PLRS runs locally the computation on the selected data"
@@ -107,7 +107,7 @@ The PLRS is beneficial for future employers:
 
 ## Requirements
 
-*See the **[Requirements spreadsheets](https://docs.google.com/spreadsheets/d/1_woXk9aom9tDLeOff_G2cQngiwdFP7_AS2Kw-h55kgs/edit#gid=1026755951)*
+*See the[Requirements spreadsheets](https://docs.google.com/spreadsheets/d/1_woXk9aom9tDLeOff_G2cQngiwdFP7_AS2Kw-h55kgs/edit#gid=1026755951)*
 
 | Requirement ID | Short description | BB input format | BB output format | Any other constraints | Verified by scenario | Requirement type |
 |---|---|---|---|---|---|---|
