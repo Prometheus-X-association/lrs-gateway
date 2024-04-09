@@ -107,7 +107,7 @@ The PLRS is beneficial for future employers:
 
 ## Requirements
 
-*See the[Requirements spreadsheets](https://docs.google.com/spreadsheets/d/1xvXP7O02g8_K38S7FXyuTz5R34aHMvDKWVTUTIXglsU/edit#gid=34673071)*
+*See the [Requirements spreadsheets](https://docs.google.com/spreadsheets/d/1xvXP7O02g8_K38S7FXyuTz5R34aHMvDKWVTUTIXglsU/edit#gid=34673071)*
 
 | Requirement ID | Short description | BB input format | BB output format | Any other constraints | Verified by scenario | Requirement type |
 |---|---|---|---|---|---|---|
@@ -164,7 +164,7 @@ Why?
 
 - Transparency on data transfer
 
-**Interact with ****Distributed data visualization**
+**Interact with Distributed data visualization**
 
 How?
 
