@@ -14,8 +14,6 @@ A personal LRS can be considered as a "personal cloud" service, as it allows ind
 
 ## Technical usage scenarios & Features
 
-*See [BB info for use cases (WP2)](https://docs.google.com/spreadsheets/d/1oKWCe0XqRJ1d-wZfKnFtZb2fS0NetFMEXX4OWSyiwDU/edit#gid=1137874968) spreadsheet.*
-
 **Key functionalities:**
 
 - export learning traces from LMS to PLRS (in LMS frontend)
@@ -106,8 +104,6 @@ The PLRS is beneficial for future employers:
 2. Don't waste time on profiles that don't match: The future employer can easily detect whether the person's skills are in line with those required for a job. This way, the employer and the individual don't waste time when there's no match.
 
 ## Requirements
-
-*See the [Requirements spreadsheets](https://docs.google.com/spreadsheets/d/1xvXP7O02g8_K38S7FXyuTz5R34aHMvDKWVTUTIXglsU/edit#gid=34673071)*
 
 | Requirement ID | Short description | BB input format | BB output format | Any other constraints | Verified by scenario | Requirement type |
 |---|---|---|---|---|---|---|
@@ -265,62 +261,49 @@ What?
 
 block-beta
 
-columns 3
+columns 6
 
-MoodleExport:1 PLRS:1
+MoodleExport:1 
 
-block:group
+PLRS_PDC:1
 
+PLRS:1
+
+PLRS_PDC_:1
+
+block:group3
 columns 1
-
-Connector
-
-block:group2
-
-columns 3
-
-Identity Consent Contract
-
+CC_PDC DVA_PDC DAI_PDC
 end
 
+block:group4
+columns 1
 ConsentContracts DataVeracityAssurance DecentralizedAItraining
-
 end
 
 classDef colorA fill:#D22FF7,color:#fff
-
 classDef colorEx fill:#01D1D1,color:#fff
-
 classDef colorED fill:#6E7176,color:#fff
-
 class MoodleExport colorEx
-
 class PLRS colorED
-
 class EdgeComputing colorED
-
 class ConsentContracts colorED
-
 class DataVeracityAssurance colorED
-
 class DecentralizedAItraining colorED
-
-class Connector colorA
-
-class Identity colorA
-
-class Consent colorA
-
-class Contract colorA
-
+class PLRS_PDC colorA
+class PLRS_PDC_ colorA
+class CC_PDC colorA
+class DVA_PDC colorA
+class DAI_PDC colorA
 ```
+
+PDC : Prometheus-X Dataspace Connector
 
 ## Input / Output Data
 
 Input and output data are in the same format: xAPI.
 
-[Example](https://drive.google.com/drive/folders/1vAjDc_iEsTRBenDVABmYEvztBh1OE_St): 
-
+Example of Becomino learning traces for an access : 
 ```json
 {
   "stored": "2024-03-11T14:17:43.686Z",
@@ -432,40 +415,295 @@ Input and output data are in the same format: xAPI.
 }
 ```
 
+Example of Becomino learning traces for an opening : 
+```json
+{
+  "stored": "2024-03-11T14:03:53.853Z",
+  "priority": "MEDIUM",
+  "active": true,
+  "completedForwardingQueue": [],
+  "failedForwardingLog": [],
+  "client": "626a34fe1deb08f53ac12609",
+  "lrs_id": "626a34fe1deb08d43dc12608",
+  "completedQueues": [
+    "STATEMENT_QUERYBUILDERCACHE_QUEUE",
+    "STATEMENT_PERSON_QUEUE",
+    "STATEMENT_FORWARDING_QUEUE"
+  ],
+  "activities": [
+    "https://www.youtube.com/watch?v=mBB_4io4t7w"
+  ],
+  "hash": "9c1dfe88035942439811946b7be0045c676b2de0",
+  "agents": [
+    "https://becomino.com/users|1710165537783x892345052938840600"
+  ],
+  "statement": {
+    "authority": {
+      "objectType": "Agent",
+      "name": "Becomino",
+      "mbox": "mailto:contact@becomino.com"
+    },
+    "stored": "2024-03-11T14:03:53.853Z",
+    "context": {
+      "contextActivities": {
+        "parent": [
+          {
+            "id": "https://becomino.com/board/devenir-pro-immobilier-1638124052784x348049108536401000",
+            "objectType": "Activity"
+          }
+        ],
+        "category": [
+          {
+            "id": "https://becomino.com/category/vente",
+            "objectType": "Activity"
+          }
+        ],
+        "grouping": [
+          {
+            "id": "https://becomino.com/board/devenir-pro-immobilier",
+            "objectType": "Activity"
+          }
+        ]
+      },
+      "language": "fr",
+      "extensions": {
+        "http://schema.inokufu.com/becomino/board": {
+          "id": "https://becomino.com/board/devenir-pro-immobilier",
+          "name": {
+            "fr": "Devenir Pro en Transactions Immobilières"
+          }
+        }
+      }
+    },
+    "actor": {
+      "account": {
+        "homePage": "https://becomino.com/users",
+        "name": "1710165537783x892345052938840600"
+      },
+      "objectType": "Agent"
+    },
+    "timestamp": "2024-03-11T14:03:42.852Z",
+    "version": "1.0.0",
+    "id": "24215902-50d4-4a5a-8cf7-aa6df42ad394",
+    "verb": {
+      "id": "https://w3id.org/xapi/netc/verbs/opened",
+      "display": {
+        "en-US": "opened"
+      }
+    },
+    "object": {
+      "id": "https://www.youtube.com/watch?v=mBB_4io4t7w",
+      "definition": {
+        "name": {
+          "fr": "Agent immobilier - Le métier"
+        },
+        "description": {
+          "fr": "bonjour à tous je suis rom un quartier de la société romain quartier formation spécialisée en accompagnement et coaching immobilier j'ai conçu le test agent immobilier pour vous aider à prouver vos compétences et vous faire remarquer par des employeurs notre métier évolue enfin j'ai envie de vous di..."
+        },
+        "type": "http://adlnet.gov/expapi/activities/link",
+        "extensions": {
+          "http://schema.inokufu.com/learning-object/type": "Video",
+          "http://schema.inokufu.com/learning-object/bloom": "discover",
+          "http://schema.inokufu.com/learning-object/provider": "YouTube",
+          "http://schema.inokufu.com/learning-object/picture": "https://i.ytimg.com/vi/mBB_4io4t7w/maxresdefault.jpg"
+        }
+      },
+      "objectType": "Activity"
+    }
+  },
+  "hasGeneratedId": true,
+  "deadForwardingQueue": [],
+  "voided": false,
+  "verbs": [
+    "https://w3id.org/xapi/netc/verbs/opened"
+  ],
+  "personaIdentifier": "65ef0e8cfff35065a8efaec2",
+  "processingQueues": [],
+  "person": {
+    "_id": "65ef0e8c99ffaefc9516664e",
+    "display": "1710165537783x892345052938840600 - https://becomino.com/users (xAPI Account)"
+  },
+  "__v": 1,
+  "timestamp": "2024-03-11T14:03:42.852Z",
+  "relatedActivities": [
+    "https://www.youtube.com/watch?v=mBB_4io4t7w",
+    "https://becomino.com/board/devenir-pro-immobilier-1638124052784x348049108536401000",
+    "https://becomino.com/board/devenir-pro-immobilier",
+    "https://becomino.com/category/vente"
+  ],
+  "relatedAgents": [
+    "https://becomino.com/users|1710165537783x892345052938840600",
+    "mailto:contact@becomino.com"
+  ],
+  "organisation": "626a340cccbcc9000aff1421",
+  "_id": "65ef0f49c56582001cca4930",
+  "registrations": [],
+  "pendingForwardingQueue": []
+}
+```
+
+Example of Becomino learning traces for a search : 
+```json
+{
+  "stored": "2024-03-11T14:03:18.048Z",
+  "priority": "MEDIUM",
+  "active": true,
+  "completedForwardingQueue": [],
+  "failedForwardingLog": [],
+  "client": "626a34fe1deb08f53ac12609",
+  "lrs_id": "626a34fe1deb08d43dc12608",
+  "completedQueues": [
+    "STATEMENT_QUERYBUILDERCACHE_QUEUE",
+    "STATEMENT_PERSON_QUEUE",
+    "STATEMENT_FORWARDING_QUEUE"
+  ],
+  "activities": [
+    "https://becomino.com/search/autocomplete%3Dvente"
+  ],
+  "hash": "c767c476e1ceec741589d207eb20c88a444f77a2",
+  "agents": [
+    "https://becomino.com/users|1710165537783x892345052938840600"
+  ],
+  "statement": {
+    "authority": {
+      "objectType": "Agent",
+      "name": "Becomino",
+      "mbox": "mailto:contact@becomino.com"
+    },
+    "stored": "2024-03-11T14:03:18.048Z",
+    "context": {
+      "contextActivities": {
+        "parent": [
+          {
+            "id": "https://becomino.com/account",
+            "objectType": "Activity"
+          }
+        ],
+        "category": [
+          {
+            "id": "https://becomino.com/category/404",
+            "objectType": "Activity"
+          }
+        ],
+        "grouping": [
+          {
+            "id": "https://becomino.com/board/404",
+            "objectType": "Activity"
+          }
+        ]
+      },
+      "language": "fr"
+    },
+    "actor": {
+      "account": {
+        "homePage": "https://becomino.com/users",
+        "name": "1710165537783x892345052938840600"
+      },
+      "objectType": "Agent"
+    },
+    "timestamp": "2024-03-11T14:03:06.821Z",
+    "version": "1.0.0",
+    "id": "773aa025-fa60-4dab-97f7-515efdf1e2cb",
+    "verb": {
+      "id": "https://w3id.org/xapi/acrossx/verbs/searched",
+      "display": {
+        "en-US": "searched"
+      }
+    },
+    "object": {
+      "id": "https://becomino.com/search/autocomplete%3Dvente",
+      "definition": {
+        "name": {
+          "fr": "autocomplete=vente"
+        },
+        "description": {
+          "fr": ""
+        }
+      },
+      "objectType": "Activity"
+    }
+  },
+  "hasGeneratedId": true,
+  "deadForwardingQueue": [],
+  "voided": false,
+  "verbs": [
+    "https://w3id.org/xapi/acrossx/verbs/searched"
+  ],
+  "personaIdentifier": "65ef0e8cfff35065a8efaec2",
+  "processingQueues": [],
+  "person": {
+    "_id": "65ef0e8c99ffaefc9516664e",
+    "display": "1710165537783x892345052938840600 - https://becomino.com/users (xAPI Account)"
+  },
+  "__v": 1,
+  "timestamp": "2024-03-11T14:03:06.821Z",
+  "relatedActivities": [
+    "https://becomino.com/search/autocomplete%3Dvente",
+    "https://becomino.com/account",
+    "https://becomino.com/board/404",
+    "https://becomino.com/category/404"
+  ],
+  "relatedAgents": [
+    "https://becomino.com/users|1710165537783x892345052938840600",
+    "mailto:contact@becomino.com"
+  ],
+  "organisation": "626a340cccbcc9000aff1421",
+  "_id": "65ef0f26c56582001cca4928",
+  "registrations": [],
+  "pendingForwardingQueue": []
+}
+```
+
 ## Architecture
 
 ```mermaid
 classDiagram
-   PLRS <|-- Connector
-   PLRS <|-- Consent_Contracts
-   PLRS <|-- Data_veracity_assurance
-   PLRS <|-- Decentralized_AI_training
-   Connector <|-- Identity
-   Connector <|-- Consent
-   Connector <|-- Contract
+   PLRS <|-- PLRS_PDC
+   PLRS_PDC <|-- PLRS
+   CC_PDC <|-- Consent_Contracts
+   Consent_Contracts <|-- CC_PDC
+   DVA_PDC <|-- Data_veracity_assurance
+   Data_veracity_assurance <|-- DVA_PDC 
+   DAI_PDC <|-- Decentralized_AI_training
+   Decentralized_AI_training <|-- DAI_PDC
+   PLRS_PDC <|-- CC_PDC
+   CC_PDC <|-- PLRS_PDC
+   PLRS_PDC <|-- DVA_PDC
+   DVA_PDC <|-- PLRS_PDC
+   PLRS_PDC <|-- DAI_PDC
+   DAI_PDC <|-- PLRS_PDC
    PLRS: string review [4]
    PLRS: string metadata [14]
    PLRS: add_review()
    PLRS: edit_metadata()
    PLRS: send_lrs()
-   class Connector{
+   class PLRS_PDC{
      identity()
-     consent()
+     catalog()
      contract()
+     consent()
+     other_core_BBs()
    }
-   class Consent{
-     bool consent
-     consent_sign()
+   class CC_PDC{
+     identity()
+     catalog()
+     contract()
+     consent()
+     other_core_BBs()
    }
-   class Identity{
-     String first name
-     String last name
-     String job
-     id()
+   class DVA_PDC{
+     identity()
+     catalog()
+     contract()
+     consent()
+     other_core_BBs()
    }
-   class Contract{
-     bool contract
-     contract_sign()
+   class DAI_PDC{
+     identity()
+     catalog()
+     contract()
+     consent()
+     other_core_BBs()
    }
    class Consent_Contracts{
      bool week[7]
@@ -546,8 +784,6 @@ Deployment & installation
 - Once installed, the user must go to cozy app store and select the PLRS app
 
 ## Third Party Components & Licenses
-
-*See the "**[EDGE third party/background components](https://docs.google.com/spreadsheets/d/13Lf4PfVnA_lAk-7dMeIy0QRxHnarxMcsS8EaLjyOlBA/edit#gid=1385858520)**" spreadsheet.*
 
 External components and licenses:
 
