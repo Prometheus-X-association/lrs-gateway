@@ -672,11 +672,12 @@ classDiagram
    DVA_PDC <|-- PLRS_PDC
    PLRS_PDC <|-- DAI_PDC
    DAI_PDC <|-- PLRS_PDC
-   PLRS: string review [4]
-   PLRS: string metadata [14]
-   PLRS: add_review()
-   PLRS: edit_metadata()
-   PLRS: send_lrs()
+   PLRS: update()
+   PLRS: exoprt_lms()
+   PLRS: import_lms()
+   PLRS: visualize()
+   PLRS: synchronize()
+   PLRS: local_access()
    class PLRS_PDC{
      identity()
      catalog()
