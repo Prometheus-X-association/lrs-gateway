@@ -6,6 +6,8 @@ While a typical [Learning Record Store (LRS)](https://github.com/adlnet/xAPI-Spe
 
 A personal LRS can be considered as a "personal cloud" service, as it allows individuals to store and access their learning records from any device with internet access. It also provides a level of control, security and privacy as the data is owned and controlled by the individual. Personal LRS can also allow for greater interoperability with other systems or applications by providing a standardized way of storing and sharing learning records.
 
+Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
+
 ![Enter image alt description](Images/08a_Image_1.png)
 
 ![Enter image alt description](Images/HWW_Image_2.png)
@@ -22,7 +24,7 @@ A personal LRS can be considered as a "personal cloud" service, as it allows ind
 
 - visualize learning traces in PLRS
 
-- synchronize PLRS data with external LRS
+- synchronize PLRS data with external LRS (regular push)
 
 - local access to data for edge computing
 
@@ -65,7 +67,7 @@ For a complete visualization, the PLRS can be connected to another application d
   - "learners can view indicators and graphs linked to their learning traces"
 
 - **Synchronize PLRS data with external LRS** 
-Students can permanently (or not) share their learning traces with an external LRS. Whether it's to justify their progress to a school or to their employer, users are in control of their data. These data exchanges are in xAPI format. Path:  
+Students can permanently (or not) share their learning traces with an external LRS. Synchronization is a regular push operation. Whether it's to justify their progress to a school or to their employer, users are in control of their data. These data exchanges are in xAPI format. Path:  
   - "In the PLRS frontend, the learner selects the data he wants to share with the chosen external LRS."
   - "PLRS synchronizes with target LRS"
 
@@ -107,10 +109,10 @@ The PLRS is beneficial for future employers:
 
 | Requirement ID | Short description | BB input format | BB output format | Any other constraints | Verified by scenario | Requirement type |
 |---|---|---|---|---|---|---|
-| BB-REQ_ID__1 | PLRS must request building block consent via the ARIANE connector | API call | API response |  |  |  |
-| BB-REQ_ID__1.1 | Individuals must consent to the use of their data in LOMCT | API call | API response | If the answer is no, the data cannot be used, nor transferred into or from the PLRS. If the answer is yer, the data can be used, and transferred into or from the PLRS. | BB-SC-PLRS-01 | DEP |
+| BB-REQ_ID__1 | PLRS must request building block consent via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
+| BB-REQ_ID__1.1 | Individuals must consent to the use of their data in PLRS | API call | API response | If the answer is no, the data cannot be used, nor transferred into or from the PLRS. If the answer is yer, the data can be used, and transferred into or from the PLRS. | BB-SC-PLRS-01 | DEP |
 | BB-REQ_ID__1.2 | Consent must be asked and verified in less than 30s | API call | API response |  | BB-SC-PLRS-02 | PERF |
-| BB-REQ_ID__2 | PLRS must request contracts from the building block consent via the ARIANE connector | API call | API response |  |  |  |
+| BB-REQ_ID__2 | PLRS must request contracts from the building block consent via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
 | BB-REQ_ID__2.1 | The PLRS must check with the contract manager through the Dataspace connector if a contract for the corresponding organization exists | API call | API response | If the answer is no, the data cannot be accessed, nor transferred into or from the PLRS. If the answer is yer, the data can be accessed, and transferred into or from the PLRS. | BB-SC-PLRS-03 | DEP |
 | BB-REQ_ID__2.2 | Contract must be asked and verified in less than 30s | API call | API response |  | BB-SC-PLRS-04 | PERF |
 | BB-REQ_ID__3 | PLRS must connect with BB Consent/contracts negotiating agent (EDGE-Skill) |  |  |  |  |  |
@@ -683,28 +685,24 @@ classDiagram
      catalog()
      contract()
      consent()
-     other_core_BBs()
    }
    class CC_PDC{
      identity()
      catalog()
      contract()
      consent()
-     other_core_BBs()
    }
    class DVA_PDC{
      identity()
      catalog()
      contract()
      consent()
-     other_core_BBs()
    }
    class DAI_PDC{
      identity()
      catalog()
      contract()
      consent()
-     other_core_BBs()
    }
    class Consent_Contracts{
      bool week[7]
@@ -722,6 +720,7 @@ classDiagram
      run_algo()
    }
 ```
+PDC : Prometheus-X Dataspace Connector
 
 ## Dynamic Behaviour
 
@@ -730,26 +729,27 @@ Behavior when exporting a dataset from the LMS :
 sequenceDiagram
    actor User as User
    User->>LMS: Click on button to send traces to PLRS
-   LMS->>PLRS:  Requests to send traces
-   PLRS->>Connector: Request for information on identity, consent and contract
-  Connector->>Identity: Request for identity information
-  Identity->>Connector: Provide identity information
-  Connector->>Consent: Request for consent information
-  Identity->>Consent: Provide consent information
-  Connector->>Contract: Request for contract information
-  Contract->>Connector: Provide contract information
-  Connector->>PLRS: Identity, consent and contract sent and approved
-  PLRS->>Consent/Contract: Request profil consent of user
-  Consent/Contract->>PLRS: Provide profil consent of user
-  PLRS->>LMS: Attest authorization to import traces
-   LMS->>PLRS: Send dataset in different format than xAPI
-   PLRS->>Data Veracity Assurance: Send dataset
-  Data Veracity Assurance->>PLRS: Validates or invalidates dataset homogeneity
-   PLRS->>LRC: Send dataset in different format than xAPI
-   LRC->>PLRS: Send dataset into xAPI format
+   LMS->>PDC_LMS:  Requests to send traces to PLRS
+   PDC_LMS->>Data_intermediary: Requests validation to send traces to PLRS
+   Data_intermediary->>Identity: Request for identity information
+   Identity->>Data_intermediary: Provide identity information
+   Data_intermediary->>Consent: Request for consent information
+   Consent->>Data_intermediary: Provide consent information
+   Data_intermediary->>Contract: Request for contract information
+   Contract->>Data_intermediary: Provide contract information
+   Data_intermediary->>PDC_LMS: Identity, consent and contract sent and approved
+   PDC_LMS->>Consent/Contract: Request profil consent of user
+   Consent/Contract->>PDC_LMS: Provide profil consent of user
+   LMS->>LRS: Request to send learning traces to PLRS
+   LRS->>LRC: Send dataset in different format than xAPI
+   LRC->>Data Veracity Assurance: Send dataset into xAPI format
+   LRC->>PDC_LMS: Send dataset into xAPI format
+   Data Veracity Assurance->>PDC_LMS: Validates or invalidates dataset homogeneity
+   PDC_LMS->>PDC_PLRS:Send dataset
+   PDC_PLRS->>PLRS:Send dataset
    PLRS->>PLRS: Update visualization
-   PLRS->>Decentralized AI training: Send dataset
 ```
+PDC : Prometheus-X Dataspace Connector
 
 Behavior when importing a dataset from the PLRS :
 
@@ -762,19 +762,22 @@ sequenceDiagram
    PLRS->>LRC: Send dataset in different format than xAPI
    LRC->>PLRS: Send dataset into xAPI format
    PLRS->>PLRS: Update visualization
-   PLRS->>Decentralized AI training: Send dataset
 ```
+PDC : Prometheus-X Dataspace Connector
+
 Behavior when share a dataset from the PLRS :
 ```mermaid
 sequenceDiagram
    actor User as User
-   User->>PLRS: Click to share dataset
-   PLRS->>Connector: Contract information request
-  Connector->>Contract: Request for contract information
-  Contract->>Connector: Provide contract information
-  Connector->>PLRS: Contract sent and approved
-  PLRS->>external LRS: Send selected dataset
+   User->>PLRS: Click to share dataset to an external LRS
+   PLRS->>PDC_PLRS: Send selected dataset
+   PDC_PLRS->>Data_intermediary: Contract information request
+   Data_intermediary->>Contract: Request for contract information
+   Contract->>Data_intermediary: Provide contract information
+   Data_intermediary->>PDC_PLRS: Contract sent and approved
+   PDC_PLRS->>external LRS: Send selected dataset
 ```
+PDC : Prometheus-X Dataspace Connector
 
 ## Configuration and deployment settings
 
@@ -841,10 +844,29 @@ paths: \
 
 ### UI test (where relevant)
 
-*Candidates for tools that can be used to implement the test cases: Selenium* 
+Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
 
 ![Enter image alt description](Images/QwL_Image_4.png)
 
 ![Enter image alt description](Images/Jiu_Image_5.png)
 
 ![Enter image alt description](Images/paJ_Image_6.jpeg)
+
+## Partners & roles
+Inokufu (BB leader): 
+- Organize workshops
+- Monitor partner progress
+- Develop backend of PLRS
+
+Cozy cloud: 
+- Host infrastructure
+- Develop frontend/application of PLRS
+
+## Usage in the dataspace
+The PLRS will be used in the service chain :
+- Personal learning record: Sharing LMS/Moodle Data for Visualization
+  
+![Enter image alt description](Images/BB%20Service%20chains%20_%20LRS%20Learning%20Records%20store.pptx%20(3).png)
+PDC : Prometheus-X Dataspace Connector
+
+- Decentralized AI training: Training of trustworthy AI models
