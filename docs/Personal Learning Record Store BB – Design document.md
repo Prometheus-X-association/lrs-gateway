@@ -824,7 +824,7 @@ paths: \
 
 ### Test plan
 
-*Testing strategy, tools and methods chosen, methods for acceptance criteria.*
+Once the architecture has been defined, precise endpoint mockups will be developed. This will enable interaction with sample data.
 
 *To be detailed.*
 
