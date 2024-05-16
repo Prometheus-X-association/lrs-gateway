@@ -866,7 +866,7 @@ Cozy cloud:
 The PLRS will be used in the service chain :
 - Personal learning record: Sharing LMS/Moodle Data for Visualization
   
-![Enter image alt description](Images/BB%20Service%20chains%20_%20LRS%20Learning%20Records%20store.pptx%20(3).png)
+![Diagram of service chain Sharing LMS/Moodle Data for Visualization](Images/BB%20Service%20chains%20_%20LRS%20Learning%20Records%20store.pptx%20(3).png)
 PDC : Prometheus-X Dataspace Connector
 
 - Decentralized AI training: Training of trustworthy AI models
