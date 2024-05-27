@@ -853,14 +853,15 @@ Please note that the following visuals are intended as projections only. UX/UI w
 ![Enter image alt description](Images/paJ_Image_6.jpeg)
 
 ## Partners & roles
-Inokufu (BB leader): 
+[Inokufu](https://www.inokufu.com/) (BB leader): 
 - Organize workshops
 - Monitor partner progress
 - Develop backend of PLRS
 
-Cozy cloud: 
+[Cozy cloud](https://cozy.io/en/): 
 - Host infrastructure
 - Develop frontend/application of PLRS
+- Deploy PTX dataspace connector for PLRS
 
 ## Usage in the dataspace
 The PLRS will be used in the service chain :
