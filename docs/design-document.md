@@ -12,7 +12,7 @@ Please note that the following visuals are intended as projections only. UX/UI w
 
 ![Enter image alt description](Images/HWW_Image_2.png)
 
-![Enter image alt description](Images/ouv_Image_3.jpeg)
+![PLRS_3 (1)](https://github.com/Prometheus-X-association/plrs/assets/167321905/b056a80d-b880-4124-a0ff-b5f4b0f267d9)
 
 ## Technical usage scenarios & Features
 
@@ -45,6 +45,8 @@ Depending on the LMS, a gateway will be created. It can take the form of a butto
 Knowing that the PLRS only accepts xAPI format, if the data from the LMS does not have this format, the first call will be made to the LRC. Path: 
     - "learner completes an activity on an LMS "
     - "its learning records are stored in the associated LRS"
+    - "The user is asked about the terms of use and export of those learning records."
+    - "The user accepts them"
     - "learning records are exported to PLRS by clicking a button"
     - "BB Consent checked for learner consent"
     - "BB Data veracity assurance ensures data consistency"
@@ -55,6 +57,8 @@ Knowing that the PLRS only accepts xAPI format, if the data from the LMS does no
 - **Import learning traces from LMS to PLRS (in PLRS frontend)** 
 If the LMS the learner is using doesn't have this direct export to PLRS button, then they can choose to export their dataset from the LMS and then import it into PLRS. Path:
   - "the learner adds a source in the PLRS: import dataset in any format"
+  - "The user is asked about the terms of use and import of those learning records."
+  - "The user accepts them"
   - "BB Consent checked for learner consent"
   - "BB Data veracity assurance ensures data consistency"
   - "LRC converts traces into xAPI"
@@ -110,7 +114,7 @@ The PLRS is beneficial for future employers:
 | Requirement ID | Short description | BB input format | BB output format | Any other constraints | Verified by scenario | Requirement type |
 |---|---|---|---|---|---|---|
 | BB-REQ_ID__1 | PLRS must request building block consent via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
-| BB-REQ_ID__1.1 | Individuals must consent to the use of their data in PLRS | API call | API response | If the answer is no, the data cannot be used, nor transferred into or from the PLRS. If the answer is yer, the data can be used, and transferred into or from the PLRS. | BB-SC-PLRS-01 | DEP |
+| BB-REQ_ID__1.1 | Individuals must consent to the export, import, and use of their data in PLRS. | API call | API response | If the answer is no, the data cannot be used, nor transferred into or from the PLRS. If the answer is yer, the data can be used, and transferred into or from the PLRS. | BB-SC-PLRS-01 | DEP |
 | BB-REQ_ID__1.2 | Consent must be asked and verified in less than 30s | API call | API response |  | BB-SC-PLRS-02 | PERF |
 | BB-REQ_ID__2 | PLRS must request contracts from the building block consent via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
 | BB-REQ_ID__2.1 | The PLRS must check with the contract manager through the Dataspace connector if a contract for the corresponding organization exists | API call | API response | If the answer is no, the data cannot be accessed, nor transferred into or from the PLRS. If the answer is yer, the data can be accessed, and transferred into or from the PLRS. | BB-SC-PLRS-03 | DEP |
@@ -186,7 +190,7 @@ Why?
 
 Why?
 
-- Contract between PTX and the LMS authorizing export of user data
+- Contract between PLRS and the LMS authorizing export of user data
 
 What?
 
