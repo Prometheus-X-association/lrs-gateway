@@ -875,3 +875,322 @@ The PLRS will be used in the service chain :
 PDC : Prometheus-X Dataspace Connector
 
 - Decentralized AI training: Training of trustworthy AI models
+## Configuration and Deployment Settings
+
+
+
+### Error Scenarios Defined
+
+
+
+The idea of the risk table is to define the probable causes of failure in order to estimate the probability of encountering this failure, to evaluate its secondary effects and therefore to plan preventive or corrective actions.
+
+
+
+We will assign 3 scores on a scale of 1 to 10 to potential failures:
+
+- **Detection** (risk of non-detection)
+
+- **Occurrence** (probable occurrence, frequency of occurrence)
+
+- **Severity of Effect** (consequences for the customer)
+
+
+
+Criticality is calculated as follows:
+
+`criticality = detection x occurrence x severity`
+
+
+
+If criticality is greater than 10, then preventive action must be taken. If not, no action is required.
+Below is the transcription of the provided spreadsheet into Markdown format:
+
+```markdown
+| ID  | Function Involved                                 | Description of Risk                                   | Effect of Failure                                       | Cause of Failure                 | Evaluation | Preventive Actions                                                       | Detection | Occurrence | Severity | Criticality | 
+|-----|---------------------------------------------------|------------------------------------------------------|--------------------------------------------------------|----------------------------------|------------|------------------------------------------------------------------------|-----------|------------|----------|-------------| 
+| 1   | export/import learning statements from LMS to PLRS| Data may be lost during migration                     | The student doesn't have his tracks in his PLRS         | Incorrect connection between PLRS and LMS   |            | Set up recurring connection tests                                        | 2         | 2          | 9        | 36          | 
+| 2   |                                                   | LMS statements are not in xAPI format                 | LMS and PLRS cannot communicate with each other          | LMS-specific data format         |            | Setting up an LRC between LMS and PLRS                                   | 1         | 4          | 10       | 40          | 
+| 3   |                                                   | Data could be transmitted to other non-targeted LRSs  | Exported data may be accessible to unauthorized persons | They are not properly secured    |            | Implementation of the PDC, which makes data exchange completely secure | 6         | 1          | 9        | 54          | 
+| 4   |                                                   | The same data can be exported several times           | Wrong visualization and learning path                   | Duplicate data                   |            | Have a program that detects duplicates                                    | 1         | 6          | 6        | 36          | 
+| 5   |                                                   | The PLRS doesn't have enough storage space for all statements | No more statement import/export                       | Too little storage               |            | Test the cloud service's scalability                                     | 1         | 3          | 9        | 24          | 
+| 6   |                                                   | The system may require downtime for large imports/exports | Disrupting normal operations                          | Low-performance servers          |            | Test the cloud service's scalability                                     | 1         | 3          | 4        | 12          | 
+| 7   | visualize learning statements in PLRS             | Graphs don't update                                   | Poor information on learning path                       | Slow update due to servers       |            |                                                                        | 1         | 2          | 2        | 4           | 
+| 8   |                                                   | Poorly designed graphics                              | No use of the platform                                   | Graphs are misleading            |            | Conduct pre-development workshops to ascertain user requirements        | 4         | 3          | 8        | 96          | 
+| 9   |                                                   | Wrong design choices: colors, shapes, ...             | No use of the platform                                   | Visual choices such as colors and graphics can subliminally influence the perception of data. Graphs are  non-inclusive |            | Conduct pre-development workshops to ascertain user requirements and use accessibility tools | 4         | 3          | 8        | 96          | 
+| 10  | synchronize PLRS data with external LRS (regular push)| Errors in synchronization can lead to data loss or partial recordings | Distorted data                                      | Incorrect connection between PLRS and LMS  |            | Set up recurring connection tests                                        | 2         | 2          | 9        | 36          | 
+| 11  |                                                   | The possibility of data conflicts can compromise information integrity | Distorted data                                     | Changes are made simultaneously in both LRS                         |            |                                                                        | 7         | 4          | 7        | 196         | 
+| 12  |                                                   | Synchronization processes can consume a lot of resources | Disrupting normal operations                         | Impacting the performance of real-time LRS systems |            | Synchronize regularly, not in real time                                 | 1         | 5          | 3        | 15          | 
+| 13  |                                                   | The synchronization process can require downtime that affects system availability, especially when large quantities of data need to be synchronized. | Disrupting normal operations                         | Low-performance servers          |            | Test the cloud service's scalability                                     | 1         | 3          | 4        | 12          | 
+| 14  |                                                   | The organization may decide to change its LRS/LMS     | Reconnecting the PLRS and the new LRS/LMS                | Change of LRS/LMS                |            |                                                                        | 1         | 2          | 1        | 2           | 
+| 15  |                                                   | Make sure that synchronization has been successful    | No learner monitoring of synchronization. No data transfer transparency | No documentation                 |            | Update documentation/history of all actions (import/export, synchronization) | 1         | 4          | 3        | 12          | 
+| 16  |                                                   | Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction | Distorted data                                    | Errors in the synchronization  |            | Have a maintenance team                                                  | 7         | 3          | 7        | 147         | 
+```
+## Test Specification
+
+
+
+The Personal Learning Record Store tests ensure that:
+
+- Functionality is efficient
+
+- Potential risks are under control
+
+- Users are satisfied
+
+
+
+### Test Plan
+
+
+
+The PLRS testing strategy will focus on ensuring the accuracy, reliability, and performance of its functionality. We will use a combination of unit testing, integration testing, and user interface testing. The test environment will reproduce conditions similar to those in production in order to accurately validate BB behavior. Acceptance criteria will be defined on the basis of user stories, functional requirements, and performance criteria.
+
+
+
+### Methodology
+
+
+
+We will run manual and automatic tests.
+
+
+
+#### Manual Scenario
+
+
+
+Using the personas, user stories, user flow, and data flow from the DAPO-X use case, we established several test scenarios.
+
+
+
+**Simple User**
+
+
+
+**S1: Learner installs PLRS**
+
+- Cozy Cloud application catalog
+
+  - Button: Install PLRS app on Cozycloud 
+
+  - User clicks on the button => PLRS home page => Configure the PLRS => Next step
+
+  - Popup: Do you have a personal data intermediary (PDI)?
+
+    - YES => Next step
+
+    - NO => Redirect to Data Intermediary => Create Vision trust account => Configure consent profile => Next step
+
+  - LMS => enter the credential of your PLRS
+
+
+
+**S2: User triggers in external app (e.g. LMS) the transfer of their data from external app to PLRS (can be one-time transfer or regular transfer e.g. every week)**
+
+- Button on the external app: share my data
+
+- User clicks on button
+
+  - Enter the credential of your PLRS
+
+  - Popup => Select which learning statements want to share
+
+  - Popup => Select if you want to schedule a one-time transfer or regular transfer
+
+  - Popup: Would you accept to export your learning records to your PLRS?
+
+    - YES => Next step
+
+    - NO => Do nothing. Redirect to LMS
+
+  - Click on the button to start the transfer of data from external app to the PLRS
+
+  - Go to PLRS home page => See their data visualization updated with newly imported data
+
+
+
+**S3: User triggers in PLRS the transfer of their data from external app to PLRS (can be one-time transfer or regular transfer e.g. every week)**
+
+- Button on the PLRS: add source
+
+- User clicks on button
+
+  - Popup => Connect your external source => Enter the credential of your external source (LRS)
+
+  - Popup => Select if you want to schedule a one-time transfer or regular transfer
+
+  - Click on the button to start the transfer of data from external source to the PLRS
+
+  - Go to PLRS home page => See their data visualization updated with newly imported data
+
+
+
+**S4: User triggers in PLRS the transfer of their data from PLRS to an external app (e.g. LMS)**
+
+- PLRS Home page
+
+  - Button: share my data with an external app
+
+  - Popup => Enter the credential of your external source (LRS)
+
+  - Popup => Select if you want to schedule a one-time transfer or regular transfer
+
+  - Click on the button to start the transfer of data from PLRS to external source
+
+  - Go to external app home page => See your personalized recommendation updated with newly imported data
+
+
+
+**Admin User**
+
+
+
+**A1: Admin of Edtech/LMS provider user flow**
+
+- LRS parameters page
+
+  - Button: Connect LRS to DAPO-X
+
+- User clicks on the button
+
+  - Button: Enter the credential of your PDC => Connect your external source (LRS)
+
+
+
+**A2: Organization joins Use case on the data space**
+
+- Vision Trust registration page
+
+  - Create Vision Trust account => Deploy PDC => PDC home page => Configures the connector
+
+  - LRS parameters page => Write the link to the learner PLRS
+
+  - Button: Import data
+
+  - User clicks on the button to import data to the selected PLRS
+
+
+
+### Automatic Test
+
+
+
+**Auto1: Transfer test**
+
+- Automatic transfer of learning statements once a week.
+
+
+
+**Auto2: Scalability test**
+
+- Automatic transfer of learning statements 1 time per week, 1 time per day, 2 times per day.
+
+
+
+*Compte review (plus tard)*
+
+## Unit Tests
+
+The scenarios described here will ensure that the functionalities are well designed.
+
+```markdown
+| ID  | Short Description                                        | Manual/Automatic                                                                      | Verified in which Scenario | Expectations for Validation                             |
+|-----|----------------------------------------------------------|---------------------------------------------------------------------------------------|----------------------------|---------------------------------------------------------|
+| 1   | export learning statements from LMS to PLRS (in LMS frontend) | manual: click on the button in LMS Automatic: 10 statements are exported               | S2                         | 8 statements are displayed in the PLRS                  |
+| 2   | import learning statements from LMS to PLRS (in PLRS frontend) | manual: click on the button in PLRS Automatic: 10 statements are imported              | S3                         | 8 statements are displayed in the PLRS                  |
+| 3   | visualize learning statements in PLRS                    | manual: see if graphs update according to statements                                   |                            | graphs are updated according to statements (TBD graphs) |
+| 4   | synchronize PLRS data with external LRS (regular push)   | manual: click on the button “share” in PLRS Automatic: during 1 month, 10 statements per day are synchronized with external LRS | S4, Auto1, Auto2           | At the end of 4 weeks, 32 statements are visible in the PLRS |
+```
+
+The scenarios described will ensure that potential failures are avoided.
+
+## UI Test
+
+
+
+### Accessibility
+
+
+
+With the rapid growth of web and mobile services, a portion of the population risks being excluded from essential services due to disabilities or impairments. Approximately 100 million people in the EU have some form of disability, representing a significant concern. This obligation is supported by the EU Charter of Fundamental Rights and the United Nations Convention on the Rights of Persons with Disabilities, and the EU has legislated to uphold these rights.
+
+
+
+Therefore, we aim to develop this PLRS inclusively and ensure it is accessible to the widest possible audience, adhering to the aforementioned guidelines ([source 1](https://digital-strategy.ec.europa.eu/en/policies/web-accessibility), [RGAA in France](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/#2)).
+
+
+
+After development, we will be testing the PLRS interface to determine its level of accessibility. The tool used will be: [WAVE](https://wave.webaim.org/).
+
+
+
+### User Feedback
+
+
+
+Real users are the best people to determine whether the chosen UI is the most effective, which is why we are going to carry out feedback tests. Categorized into 2 parts, we will be doing both quantitative and qualitative tests, in order to get complete feedback.
+
+
+
+#### Quantitative Tests
+
+
+
+Quantitative tests will be directed by a feedback form. The selected questionnaire is “[Attrakdiff](https://www.usabilis.com/quest-quun-questionnaire-attrakdiff/, https://www.digitalzentrum-fokus-mensch.de/kos/WNetz?art=File.download&id=1296&name=AttrakDiff_EN_UID.pdf)”.
+
+
+
+The AttrakDiff is a standardized questionnaire (based on the Hassenzahl (2003) model) comprising 4 subscales of 7 items each, for a total of 28 items.
+
+
+
+The AttrakDiff subscales are as follows:
+
+
+
+- **Pragmatic Quality Scale (PQ)**: Describes the product's usability and indicates the extent to which the product enables users to achieve their goal(s).
+
+- **Hedonic Quality-Stimulation Scale (QH-S)**: Indicates the extent to which the product can support the need for stimulation.
+
+- **Hedonic Quality Scale - Identification (QH-I)**: Indicates the extent to which the product enables the user to identify with it.
+
+- **Overall Attractiveness Scale (ATT)**: Describes the product's overall value based on the perception of pragmatic and hedonic qualities.
+
+
+
+Prior to UX/UI development, we will determine the criteria for PQ, QH-S, QH-I, and ATT. If the tests on 30 test users do not meet expectations, then iterate.
+
+
+
+#### Qualitative Tests
+
+
+
+For the qualitative tests, we will interview 2 people loyal to each persona:
+
+- 2 adult learners
+
+- 2 minors with their parents
+
+- 2 directors of an organization
+
+- 2 edtech managers
+
+- 2 school directors
+
+
+
+So there will be a total of 10 interviews. 
+
+
+
+The process will be the same for all:
+
+- Introducing the person 
+
+- Discussing their relationship to education (work, time commitment, etc.)
+
+- Asking them to perform a scenario from the manual scenarios, adapted to their profile, commenting on their actions
+
+- Discussing their feelings
