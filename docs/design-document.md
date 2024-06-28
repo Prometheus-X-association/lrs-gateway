@@ -8,11 +8,12 @@ A personal LRS can be considered as a "personal cloud" service, as it allows ind
 
 Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
 
-![Enter image alt description](Images/08a_Image_1.png)
+![Cozy store](https://github.com/Prometheus-X-association/plrs/assets/129832540/54e17b27-27e3-4791-be1f-f3ea78e188e2)
 
-![Enter image alt description](Images/HWW_Image_2.png)
+![Cosy store - PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/89f5b741-6d72-4368-b04c-cbd621b1bdd3)
 
-![PLRS_3 (1)](https://github.com/Prometheus-X-association/plrs/assets/167321905/b056a80d-b880-4124-a0ff-b5f4b0f267d9)
+![PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/23e04cd1-59d8-40d4-a3ce-2bdcd615be96)
+
 
 ## Technical usage scenarios & Features
 
@@ -50,8 +51,8 @@ Knowing that the PLRS only accepts xAPI format, if the data from the LMS does no
     - "learning records are exported to PLRS by clicking a button"
     - "BB Consent checked for learner consent"
     - "BB Data veracity assurance ensures data consistency"
-    - "LRC converts traces into xAPI"
-    - "LRC sends traces to PLRS"
+    - if necessary "LRC converts traces into xAPI"
+    - "LRS sends traces to PLRS"
     - "Update of PLRS visual graphs and data"
 
 - **Import learning traces from LMS to PLRS (in PLRS frontend)** 
@@ -61,8 +62,8 @@ If the LMS the learner is using doesn't have this direct export to PLRS button, 
   - "The user accepts them"
   - "BB Consent checked for learner consent"
   - "BB Data veracity assurance ensures data consistency"
-  - "LRC converts traces into xAPI"
-  - "LRC sends traces to PLRS"
+  - if necessary "LRC converts traces into xAPI"
+  - "LRS sends traces to PLRS"
   - "adaptation of PLRS visual graphs and data"
 
 - **Visualize learning traces in PLRS** 
@@ -785,106 +786,16 @@ PDC : Prometheus-X Dataspace Connector
 
 ## Configuration and deployment settings
 
-Deployment & installation
+### Deployment & installation
 
 - The user must have created its Cozy cloud and installed it on its device (see [here](https://cozy.io/en/download/))
 
 - Once installed, the user must go to cozy app store and select the PLRS app
 
-## Third Party Components & Licenses
-
-External components and licenses:
-
-- Cozy cloud, [open source](https://github.com/cozy/cozy-stack), [license ](https://github.com/cozy/cozy-stack?tab=AGPL-3.0-1-ov-file#readme)[GPLv3](https://github.com/cozy/cozy-stack?tab=AGPL-3.0-1-ov-file#readme)
-
-## Implementation Details
-
-*This is optional: remove this heading if not needed.*
-
-*You can add details about implementation plans and lower-level design here.*
-
-## OpenAPI Specification
-
-*In the future: link your OpenAPI spec here.*
-
-```yml
-openapi: 3.0.0 \
-info: \
-     version: 0.0.1 \
-     title: Personal Learning Record Store \
-   description: Personal Learning Record Store (LRS) allows individuals to store and manage their own learning records in their cloud drive. PLRS allows individuals to keep track of their learning activities, achievements, and progress through their whole life. They can easily share these data with others if, or when, they choose to. \
-paths: \
-     /list: \
-          get: \
-               description: Returns a list of stuff \
-                    responses: \
-                         '200': \
-                              description: Successful response
-```
-
-## Test specification
-
-*Test definitions and testing environment should be availaible, and the tests should be repeatable.*
-
-### Test plan
-
-Once the architecture has been defined, precise endpoint mockups will be developed. This will enable interaction with sample data.
-
-*To be detailed.*
-
-### Internal unit tests
-
-*Here specify the test cases for the units inside the BB.*  
-
-*Candidates for tools that can be used to implement the test cases: JUnit, Mockito, Pytest.*
-
-### Component-level testing
-
-*Here specify how to test this component/BB as a whole. This is similar to how other BBs will use this component.*
-
-*Candidates for tools that can be used to implement the test cases: K6, Postman, stepci, Pact*
-
-*An example tutorial is available [here](https://github.com/ftsrg-edu/swsv-labs/wiki/2b-Integration-testing).*
-
-### UI test (where relevant)
-
-Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
-
-![Enter image alt description](Images/QwL_Image_4.png)
-
-![Enter image alt description](Images/Jiu_Image_5.png)
-
-![Enter image alt description](Images/paJ_Image_6.jpeg)
-
-## Partners & roles
-[Inokufu](https://www.inokufu.com/) (BB leader): 
-- Organize workshops
-- Monitor partner progress
-- Develop backend of PLRS
-
-[Cozy cloud](https://cozy.io/en/): 
-- Host infrastructure
-- Develop frontend/application of PLRS
-- Deploy PTX dataspace connector for PLRS
-
-## Usage in the dataspace
-The PLRS will be used in the service chain :
-- Personal learning record: Sharing LMS/Moodle Data for Visualization
-  
-![Diagram of service chain Sharing LMS/Moodle Data for Visualization](Images/BB%20Service%20chains%20_%20LRS%20Learning%20Records%20store.pptx%20(3).png)
-PDC : Prometheus-X Dataspace Connector
-
-- Decentralized AI training: Training of trustworthy AI models
-## Configuration and Deployment Settings
-
-
 
 ### Error Scenarios Defined
 
-
-
 The idea of the risk table is to define the probable causes of failure in order to estimate the probability of encountering this failure, to evaluate its secondary effects and therefore to plan preventive or corrective actions.
-
 
 
 We will assign 3 scores on a scale of 1 to 10 to potential failures:
@@ -924,6 +835,37 @@ Below is the transcription of the provided spreadsheet into Markdown format:
 | 14  | synchronize PLRS data with external LRS (regular push) | The organization may decide to change its LRS/LMS                | No learner monitoring of synchronization. No data transfer transparency | Change of LRS/LMS                                              | Detection: 1 Occurrence: 4 Severity: 3 Criticality: 2          | Update documentation/history of all actions (import/export, synchronization), Have a maintenance team |
 | 15  | synchronize PLRS data with external LRS (regular push) | Make sure that synchronization has been successful                | Distorted data                                               | No documentation                                               | Detection: 1 Occurrence: 3 Severity: 7 Criticality: 12         | Update documentation/history of all actions (import/export, synchronization), Have a maintenance team |
 | 16  | synchronize PLRS data with external LRS (regular push) | Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction | Distorted data                                               | Errors in the synchronization                                   | Detection: 7 Occurrence: 3 Severity: 7 Criticality: 147        | Set up recurring connection tests, Synchronize regularly, not in real time             |
+
+## Third Party Components & Licenses
+
+External components and licenses:
+
+- Cozy cloud, [open source](https://github.com/cozy/cozy-stack), [license ](https://github.com/cozy/cozy-stack?tab=AGPL-3.0-1-ov-file#readme)[GPLv3](https://github.com/cozy/cozy-stack?tab=AGPL-3.0-1-ov-file#readme)
+
+## Implementation Details
+
+*This is optional: remove this heading if not needed.*
+
+*You can add details about implementation plans and lower-level design here.*
+
+## OpenAPI Specification
+
+*In the future: link your OpenAPI spec here.*
+
+```yml
+openapi: 3.0.0 \
+info: \
+     version: 0.0.1 \
+     title: Personal Learning Record Store \
+   description: Personal Learning Record Store (LRS) allows individuals to store and manage their own learning records in their cloud drive. PLRS allows individuals to keep track of their learning activities, achievements, and progress through their whole life. They can easily share these data with others if, or when, they choose to. \
+paths: \
+     /list: \
+          get: \
+               description: Returns a list of stuff \
+                    responses: \
+                         '200': \
+                              description: Successful response
+```
 
 ## Test Specification
 
@@ -1086,108 +1028,33 @@ Using the personas, user stories, user flow, and data flow from the DAPO-X use c
 - Automatic transfer of learning statements 1 time per week, 1 time per day, 2 times per day.
 
 
+### UI test (where relevant)
 
-*Compte review (plus tard)*
+Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
 
-## Unit Tests
+![Cozy store](https://github.com/Prometheus-X-association/plrs/assets/129832540/54e17b27-27e3-4791-be1f-f3ea78e188e2)
 
-The scenarios described here will ensure that the functionalities are well designed.
+![Cosy store - PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/89f5b741-6d72-4368-b04c-cbd621b1bdd3)
 
-| ID | Short description                                           | Manual/Automatic                                                                | Verified in which scenario | Expectations for validation                               |
-|----|-------------------------------------------------------------|----------------------------------------------------------------------------------|----------------------------|-----------------------------------------------------------|
-| 1  | export learning statements from LMS to PLRS (in LMS frontend) | manual : click on the button in LMS                                              | S2                         | 8 statements are displayed in the PLRS                    |
-| 2  | import learning statements from LMS to PLRS (in PLRS frontend) | Automatic : 10 statements are exported                                           | S3                         | 8 statements are displayed in the PLRS                    |
-| 3  | visualize learning statements in PLRS                        | manual : see if graphs update according to statements                             |                            | graphs are updated according to statements (TBD graphs)   |
-| 4  | synchronize PLRS data with external LRS (regular push)       | manual : click on the button “share” in PLRS                                      | S4 Auto1 Auto2             | At the end of 4 weeks, 32 statements are visible in the PLRS |
+![PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/23e04cd1-59d8-40d4-a3ce-2bdcd615be96)
 
-The scenarios described will ensure that potential failures are avoided.
 
-## UI Test
+## Partners & roles
+[Inokufu](https://www.inokufu.com/) (BB leader): 
+- Organize workshops
+- Monitor partner progress
+- Develop backend of PLRS
 
+[Cozy cloud](https://cozy.io/en/): 
+- Host infrastructure
+- Develop frontend/application of PLRS
+- Deploy PTX dataspace connector for PLRS
 
+## Usage in the dataspace
+The PLRS will be used in the service chain :
+- Personal learning record: Sharing LMS/Moodle Data for Visualization
+  
+![Diagram of service chain Sharing LMS/Moodle Data for Visualization](Images/BB%20Service%20chains%20_%20LRS%20Learning%20Records%20store.pptx%20(3).png)
+PDC : Prometheus-X Dataspace Connector
 
-### Accessibility
-
-
-
-With the rapid growth of web and mobile services, a portion of the population risks being excluded from essential services due to disabilities or impairments. Approximately 100 million people in the EU have some form of disability, representing a significant concern. This obligation is supported by the EU Charter of Fundamental Rights and the United Nations Convention on the Rights of Persons with Disabilities, and the EU has legislated to uphold these rights.
-
-
-
-Therefore, we aim to develop this PLRS inclusively and ensure it is accessible to the widest possible audience, adhering to the aforementioned guidelines ([source 1](https://digital-strategy.ec.europa.eu/en/policies/web-accessibility), [RGAA in France](https://accessibilite.numerique.gouv.fr/methode/criteres-et-tests/#2)).
-
-
-
-After development, we will be testing the PLRS interface to determine its level of accessibility. The tool used will be: [WAVE](https://wave.webaim.org/).
-
-
-
-### User Feedback
-
-
-
-Real users are the best people to determine whether the chosen UI is the most effective, which is why we are going to carry out feedback tests. Categorized into 2 parts, we will be doing both quantitative and qualitative tests, in order to get complete feedback.
-
-
-
-#### Quantitative Tests
-
-
-
-Quantitative tests will be directed by a feedback form. The selected questionnaire is “[Attrakdiff](https://www.usabilis.com/quest-quun-questionnaire-attrakdiff/, https://www.digitalzentrum-fokus-mensch.de/kos/WNetz?art=File.download&id=1296&name=AttrakDiff_EN_UID.pdf)”.
-
-
-
-The AttrakDiff is a standardized questionnaire (based on the Hassenzahl (2003) model) comprising 4 subscales of 7 items each, for a total of 28 items.
-
-
-
-The AttrakDiff subscales are as follows:
-
-
-
-- **Pragmatic Quality Scale (PQ)**: Describes the product's usability and indicates the extent to which the product enables users to achieve their goal(s).
-
-- **Hedonic Quality-Stimulation Scale (QH-S)**: Indicates the extent to which the product can support the need for stimulation.
-
-- **Hedonic Quality Scale - Identification (QH-I)**: Indicates the extent to which the product enables the user to identify with it.
-
-- **Overall Attractiveness Scale (ATT)**: Describes the product's overall value based on the perception of pragmatic and hedonic qualities.
-
-
-
-Prior to UX/UI development, we will determine the criteria for PQ, QH-S, QH-I, and ATT. If the tests on 30 test users do not meet expectations, then iterate.
-
-
-
-#### Qualitative Tests
-
-
-
-For the qualitative tests, we will interview 2 people loyal to each persona:
-
-- 2 adult learners
-
-- 2 minors with their parents
-
-- 2 directors of an organization
-
-- 2 edtech managers
-
-- 2 school directors
-
-
-
-So there will be a total of 10 interviews. 
-
-
-
-The process will be the same for all:
-
-- Introducing the person 
-
-- Discussing their relationship to education (work, time commitment, etc.)
-
-- Asking them to perform a scenario from the manual scenarios, adapted to their profile, commenting on their actions
-
-- Discussing their feelings
+- Decentralized AI training: Training of trustworthy AI models
