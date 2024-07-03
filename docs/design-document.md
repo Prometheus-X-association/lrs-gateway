@@ -50,7 +50,6 @@ Knowing that the PLRS only accepts xAPI format, if the data from the LMS does no
     - "The user accepts them"
     - "learning records are exported to PLRS by clicking a button"
     - "BB Consent checked for learner consent"
-    - "BB Data veracity assurance ensures data consistency"
     - if necessary "LRC converts traces into xAPI"
     - "LRS sends traces to PLRS"
     - "Update of PLRS visual graphs and data"
@@ -61,7 +60,6 @@ If the LMS the learner is using doesn't have this direct export to PLRS button, 
   - "The user is asked about the terms of use and import of those learning records."
   - "The user accepts them"
   - "BB Consent checked for learner consent"
-  - "BB Data veracity assurance ensures data consistency"
   - if necessary "LRC converts traces into xAPI"
   - "LRS sends traces to PLRS"
   - "adaptation of PLRS visual graphs and data"
@@ -77,10 +75,7 @@ Students can permanently (or not) share their learning traces with an external L
   - "PLRS synchronizes with target LRS"
 
 - **Local access to data for decentralized AI training** 
-Users can give local access to their data to train model on them using a decentralized AI training approach.. This makes it possible to run computation on the data locally (within the PLRS) and only return the result. This way learner data do not exit their PLRS and limit privacy issues associated with sharing data externally. Path: 
-  - "In the PLRS frontend, learner selects the data he wants to give local access to run an algorithm on it"
-  - "PLRS runs locally the computation on the selected data"
-  - "PLRS sends the result of the computation back to the edge computing orchestrator"
+This makes it possible to run computation on the data locally (within the PLRS) and only return the result. This way learner data do not exit their PLRS and limit privacy issues associated with sharing data externally.
 
 ### Technical usage scenarios
 
@@ -179,6 +174,17 @@ Why?
 
 - Visualize the learner's skills
 
+**Interact with LRC**
+
+Why?
+
+- Harmonize data in the PLRS in xAPI
+
+What?
+
+- Convert any dataset to xAPI format
+
+
 ### Integrations via Connector
 
 **Connection with connector**
@@ -231,15 +237,6 @@ What?
 
 - Use the user's educational background
 
-**Connection with LRC**
-
-Why?
-
-- Harmonize data in the PLRS in xAPI
-
-What?
-
-- Convert any dataset to xAPI format
 
 ## Relevant Standards
 
@@ -268,10 +265,10 @@ What?
 
 block-beta
 
-columns 6
+columns 7
 
-MoodleExport:1 
-
+LMSExport:1 
+LMS_PDC:1 
 PLRS_PDC:1
 
 PLRS:1
@@ -291,13 +288,14 @@ end
 classDef colorA fill:#D22FF7,color:#fff
 classDef colorEx fill:#01D1D1,color:#fff
 classDef colorED fill:#6E7176,color:#fff
-class MoodleExport colorEx
+class LMSExport colorEx
 class PLRS colorED
 class EdgeComputing colorED
 class ConsentContracts colorED
 class DataVeracityAssurance colorED
 class DecentralizedAItraining colorED
 class PLRS_PDC colorA
+class LMS_PDC colorA
 class PLRS_PDC_ colorA
 class CC_PDC colorA
 class DVA_PDC colorA
@@ -745,11 +743,9 @@ sequenceDiagram
    Data_intermediary->>PDC_LMS: Identity, consent and contract sent and approved
    PDC_LMS->>Consent/Contract: Request profil consent of user
    Consent/Contract->>PDC_LMS: Provide profil consent of user
-   LMS->>LRS: Request to send learning traces to PLRS
-   LRS->>LRC: Send dataset in different format than xAPI
-   LRC->>Data Veracity Assurance: Send dataset into xAPI format
-   LRC->>PDC_LMS: Send dataset into xAPI format
-   Data Veracity Assurance->>PDC_LMS: Validates or invalidates dataset homogeneity
+   PDC_LMS->>LMS: Grants the transfer
+   LMS->>LRS: Requires learning traces to be sent to PLRS
+   LRS->>PDC_LMS: Send dataset into xAPI format
    PDC_LMS->>PDC_PLRS:Send dataset
    PDC_PLRS->>PLRS:Send dataset
    PLRS->>PLRS: Update visualization
@@ -762,8 +758,6 @@ Behavior when importing a dataset from the PLRS :
 sequenceDiagram
    actor User as User
    User->>PLRS: Send dataset in different format than xAPI
-   PLRS->>Data Veracity Assurance: Send dataset
-  Data Veracity Assurance->>PLRS: Validates or invalidates dataset homogeneity
    PLRS->>LRC: Send dataset in different format than xAPI
    LRC->>PLRS: Send dataset into xAPI format
    PLRS->>PLRS: Update visualization
@@ -780,7 +774,8 @@ sequenceDiagram
    Data_intermediary->>Contract: Request for contract information
    Contract->>Data_intermediary: Provide contract information
    Data_intermediary->>PDC_PLRS: Contract sent and approved
-   PDC_PLRS->>external LRS: Send selected dataset
+   PDC_PLRS->>PDC_external: Send selected dataset
+   PDC_external->>external LRS: Send selected dataset
 ```
 PDC : Prometheus-X Dataspace Connector
 
@@ -842,12 +837,6 @@ External components and licenses:
 
 - Cozy cloud, [open source](https://github.com/cozy/cozy-stack), [license ](https://github.com/cozy/cozy-stack?tab=AGPL-3.0-1-ov-file#readme)[GPLv3](https://github.com/cozy/cozy-stack?tab=AGPL-3.0-1-ov-file#readme)
 
-## Implementation Details
-
-*This is optional: remove this heading if not needed.*
-
-*You can add details about implementation plans and lower-level design here.*
-
 ## OpenAPI Specification
 
 *In the future: link your OpenAPI spec here.*
@@ -904,112 +893,31 @@ We will run manual and automatic tests.
 Using the personas, user stories, user flow, and data flow from the DAPO-X use case, we established several test scenarios.
 
 
+**User triggers in Constellation the transfer of their data from external app to PLRS. It is a one time transfer.**
 
-**Simple User**
+- The learner completes the "Test d'entrée en formation" activity on Constellation : https://constellation.inokufu.com/mod/quiz/view.php?id=374
+- It scores 6/10.
 
+- He finishes the "Introduction aux Data Spaces" course and obtains the certificate of completion : https://constellation.inokufu.com/course/view.php?id=25
 
+- He exports his data to his PLRS (in LMS frontend)
 
-**S1: Learner installs PLRS**
+Validation : This scenario is validated if the PLRS shows statements of learning. In particular these 3 statements :
+- The student completed the "Test d'entrée en formation".
+- The student graded the certificate.
+- The student completed the "Introduction aux data spaces" course.
 
-- Cozy Cloud application catalog
+**User triggers in Constellation the transfer of their data from external app to PLRS. It is a regular transfer (every week)**
+-
 
-  - Button: Install PLRS app on Cozycloud 
+**User triggers in PLRS the transfer of their data from Contellation to PLRS. It is a one time transfer**
+- 
 
-  - User clicks on the button => PLRS home page => Configure the PLRS => Next step
+**User triggers in PLRS the transfer of their data from Contellation to PLRS. It is a regular transfer (every week)**
+-
 
-  - Popup: Do you have a personal data intermediary (PDI)?
-
-    - YES => Next step
-
-    - NO => Redirect to Data Intermediary => Create Vision trust account => Configure consent profile => Next step
-
-  - LMS => enter the credential of your PLRS
-
-
-
-**S2: User triggers in external app (e.g. LMS) the transfer of their data from external app to PLRS (can be one-time transfer or regular transfer e.g. every week)**
-
-- Button on the external app: share my data
-
-- User clicks on button
-
-  - Enter the credential of your PLRS
-
-  - Popup => Select which learning statements want to share
-
-  - Popup => Select if you want to schedule a one-time transfer or regular transfer
-
-  - Popup: Would you accept to export your learning records to your PLRS?
-
-    - YES => Next step
-
-    - NO => Do nothing. Redirect to LMS
-
-  - Click on the button to start the transfer of data from external app to the PLRS
-
-  - Go to PLRS home page => See their data visualization updated with newly imported data
-
-
-
-**S3: User triggers in PLRS the transfer of their data from external app to PLRS (can be one-time transfer or regular transfer e.g. every week)**
-
-- Button on the PLRS: add source
-
-- User clicks on button
-
-  - Popup => Connect your external source => Enter the credential of your external source (LRS)
-
-  - Popup => Select if you want to schedule a one-time transfer or regular transfer
-
-  - Click on the button to start the transfer of data from external source to the PLRS
-
-  - Go to PLRS home page => See their data visualization updated with newly imported data
-
-
-
-**S4: User triggers in PLRS the transfer of their data from PLRS to an external app (e.g. LMS)**
-
-- PLRS Home page
-
-  - Button: share my data with an external app
-
-  - Popup => Enter the credential of your external source (LRS)
-
-  - Popup => Select if you want to schedule a one-time transfer or regular transfer
-
-  - Click on the button to start the transfer of data from PLRS to external source
-
-  - Go to external app home page => See your personalized recommendation updated with newly imported data
-
-
-
-**Admin User**
-
-
-
-**A1: Admin of Edtech/LMS provider user flow**
-
-- LRS parameters page
-
-  - Button: Connect LRS to DAPO-X
-
-- User clicks on the button
-
-  - Button: Enter the credential of your PDC => Connect your external source (LRS)
-
-
-
-**A2: Organization joins Use case on the data space**
-
-- Vision Trust registration page
-
-  - Create Vision Trust account => Deploy PDC => PDC home page => Configures the connector
-
-  - LRS parameters page => Write the link to the learner PLRS
-
-  - Button: Import data
-
-  - User clicks on the button to import data to the selected PLRS
+**User triggers in PLRS the transfer of their data from PLRS to Constellation**
+-
 
 
 
