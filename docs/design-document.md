@@ -891,34 +891,86 @@ We will run manual and automatic tests.
 
 
 Using the personas, user stories, user flow, and data flow from the DAPO-X use case, we established several test scenarios.
+For your information, the tests will be extended in the future.
 
+**User triggers in Constellation the transfer of their data from Constellation to PLRS. It is a one time transfer.**
 
-**User triggers in Constellation the transfer of their data from external app to PLRS. It is a one time transfer.**
+- The learner completes the "Test d'entrée en formation" activity on Constellation
+    - https://constellation.inokufu.com/mod/quiz/view.php?id=374
+    - It scores 6/10
 
-- The learner completes the "Test d'entrée en formation" activity on Constellation : https://constellation.inokufu.com/mod/quiz/view.php?id=374
-- It scores 6/10.
+- He obtains the certificate of completion
+    - https://constellation.inokufu.com/course/view.php?id=25
 
-- He finishes the "Introduction aux Data Spaces" course and obtains the certificate of completion : https://constellation.inokufu.com/course/view.php?id=25
+- He finishes the "Introduction aux Data Spaces" course
 
 - He exports his data to his PLRS (in LMS frontend)
 
-Validation : This scenario is validated if the PLRS shows statements of learning. In particular these 3 statements :
-- The student completed the "Test d'entrée en formation".
+Validation : This scenario is validated if the PLRS display statements of learning. In particular these 3 statements :
+- The student completed the "Test d'entrée en formation" with 6/10.
 - The student graded the certificate.
 - The student completed the "Introduction aux data spaces" course.
 
-**User triggers in Constellation the transfer of their data from external app to PLRS. It is a regular transfer (every week)**
--
+**User triggers in PLRS the transfer of their data from Constellation to PLRS. It is a one time transfer**
+- The learner completes the "Quizz de renforcement Prompt" activity on Constellation
+    - https://constellation.inokufu.com/mod/hvp/view.php?id=29
+    - It scores 7/10
+    
+- He transfers his data from LMS to his PLRS (in PLRS frontend)
 
-**User triggers in PLRS the transfer of their data from Contellation to PLRS. It is a one time transfer**
-- 
+Validation : This scenario is validated if the PLRS shows statements of learning. In particular this statement :
+- The student completed the "Quizz de renforcement Prompt" with 7/10.
 
-**User triggers in PLRS the transfer of their data from Contellation to PLRS. It is a regular transfer (every week)**
--
+**User triggers in PLRS the transfer of their data from Constellation to PLRS. It is a regular transfer (every week)**
+- The learner completes the activity "Lombricomposter"
+    - Date: 01.10.2024
+    - https://constellation.inokufu.com/mod/hvp/view.php?id=119
 
-**User triggers in PLRS the transfer of their data from PLRS to Constellation**
--
+- The learner completes the course "Apprendre à composter en maison ou appartement"
+    - Date: 02.10.2024
+    - https://constellation.inokufu.com/course/view.php?id=9
 
+- The learner completes the course “Sécurité incendie” 
+- Obtain the certificate
+    - Date: 06.10.2024
+    - https://constellation.inokufu.com/course/view.php?id=12
+
+Validation : This scenario is validated if the PLRS shows statements of learning. In particular these 5 statements in these dates (if the transfer is all saturday):
+05.10.2024
+- The student completed the "Lombricomposter" activity.
+- The student graded the certificate.
+- The student completed the "Apprendre à composter en maison ou appartement" course.
+12.10.2024
+- The student graded the certificate.
+- The student completed the "Sécurité incendie" course.
+
+**User triggers in PLRS the transfer of their data from PLRS to external app. It is a one time transfer.**
+- The learner completes the course “Constellation, un atout pédagogique?”
+    - Date: 04.07.2024
+    - https://constellation.inokufu.com/course/view.php?id=8
+
+- The learner completes the course “Sécurité incendie”
+- He obtain the certificate
+    - Date: 11.07.2024
+    - https://constellation.inokufu.com/course/view.php?id=12
+ 
+- He exports his data to the school's LRS (https://XXX.com/data/xAPIx), in PLRS frontend.
+
+Validation : This scenario is validated if the school's LRS display statements of learning.
+
+**User triggers in PLRS the transfer of their data from PLRS to external app. It is a regular transfer (every week).**
+The user has given access to his data to the school's LRS (https://XXX.com/data/xAPIx)
+
+- The learner completes the course “Constellation, un atout pédagogique?”
+    - Date: 04.07.2024
+    - https://constellation.inokufu.com/course/view.php?id=8
+
+- The learner completes the course “Sécurité incendie”
+- He obtain the certificate
+    - Date: 11.07.2024
+    - https://constellation.inokufu.com/course/view.php?id=12
+
+Validation : This scenario is validated if the school's LRS display statements of learning.
 
 
 ### Automatic Test
