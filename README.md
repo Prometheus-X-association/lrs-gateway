@@ -1,3 +1,4 @@
 # Personal Learning Record Store BB
 The Personal Learning Record Store (PLRS) service is a cloud-based platform that empowers individuals to store and manage their learning records centrally. Unlike traditional Learning Record Stores (LRS) owned by training organizations, a PLRS is directly owned by the learner, providing unparalleled control over their personal learning data. With PLRS, users can easily access, download, and reuse their learning records, enhancing data portability and GDPR compliance. This service not only tracks learning activities, achievements, and progress but also facilitates secure and private sharing of this information when desired. Embrace the future of learning with a PLRS—your personal cloud for lifelong education.
+
 See the design document [here](docs/design-document.md).
