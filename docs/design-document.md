@@ -128,114 +128,24 @@ The PLRS is beneficial for future employers:
 
 ### Direct Integrations with Other BBs
 
-**Interact with Decentralized AI training**
-
-How?
-
-- send anonymized (or not) data to train AI models
-
-Why?
-
-- train AI model
-
-**Interact with Data veracity assurance**
-
-How?
-
-- Send access to dataset
-
-Why?
-
-- Ensure that data exploitation is feasible
-
-- Ensure data consistency
-
-**Interact with consent/contract**
-
-How?
-
-- Identify data import period (date, time, week)
-
-- Identify data export period (date, time, week, organization)
-
-Why?
-
-- Transparency on data transfer
-
-**Interact with Distributed data visualization**
-
-How?
-
-- Send dataset in xAPI format
-
-- Asynchronous
-
-Why?
-
-- Visualize the learner's skills
-
-**Interact with LRC**
-
-Why?
-
-- Harmonize data in the PLRS in xAPI
-
-What?
-
-- Convert any dataset to xAPI format
+| Category                                    | Why?                                      | How?                                                                     |
+|---------------------------------------------|-------------------------------------------|--------------------------------------------------------------------------|
+| Interact with Decentralized AI training     | train AI model                            | send anonymized (or not) data to train AI models                         |
+| Interact with Data veracity assurance       | Ensure that data exploitation is feasible<br>Ensure data consistency | Send access to dataset                                                  |
+| Interact with consent/contract              | Transparency on data transfer             | Identify data import period (date, time, week)<br>Identify data export period (date, time, week, organization) |
+| Interact with Distributed data visualization| Visualize the learner's skills            | Send dataset in xAPI format<br>Asynchronous                             |
+| Interact with LRC                           | Harmonize data in the PLRS in xAPI        | Convert any dataset to xAPI format                                       |
 
 
 ### Integrations via Connector
 
-**Connection with connector**
+| Category                       | Why?                                                       | What?                                                                                                   |
+|--------------------------------|------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| Connection with connector      | Simplify communication between the PLRS and PTX CCs       |                                                                                                        |
+| Connection with contract       | Contract between PLRS and the LMS authorizing export of user data | Obtain the organization's agreement to export user data.<br>Identify the data standard to be transferred. |
+| Connection with consent        | User consent to export/import his data                    | Obtain the user's consent to export data.<br>Obtain consent to import data.<br>Obtain person's agreement to share data with selected organizations/persons.<br>Obtain the person's agreement to use his data to improve AI.<br>Obtain consent to analyze data. |
+| Connection with identity       | Enable PLRS to use users' identities to display metadata with others | Use the user's first and last name.<br>Use the user's professional background.<br>Use the user's educational background. |
 
-Why?
-
-- Simplify communication between the PLRS and PTX CCs
-
-**Connection with contract**
-
-Why?
-
-- Contract between PLRS and the LMS authorizing export of user data
-
-What?
-
-- Obtain the organization's agreement to export user data.
-
-- Identify the data standard to be transferred.
-
-**Connection with consent**
-
-Why?
-
-- User consent to export/import his data
-
-What?
-
-- Obtain the user's consent to export data
-
-- Obtain consent to import data
-
-- Obtain person's agreement to share data with selected organizations/persons
-
-- Obtain the person's agreement to use his data to improve AI
-
-- Obtain consent to analyze data
-
-**Connection with identity**
-
-Why?
-
-- Enable PLRS to use users' identities to display metadata with other
-
-What?
-
-- Use the user's first and last name
-
-- Use the user's professional background
-
-- Use the user's educational background
 
 
 ## Relevant Standards
