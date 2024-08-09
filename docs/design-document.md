@@ -928,3 +928,5 @@ The PLRS will be used in the service chain :
 PDC : Prometheus-X Dataspace Connector
 
 - Decentralized AI training: Training of trustworthy AI models
+  ![BB Service chains - Decentralized training](https://github.com/user-attachments/assets/e54b5409-8d7a-45e3-bc56-54b7d8738417)
+
