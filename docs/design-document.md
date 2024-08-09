@@ -43,36 +43,18 @@ Please note that the following visuals are intended as projections only. UX/UI w
 
 - **Export learning traces from LMS to PLRS (in LMS frontend)** 
 Depending on the LMS, a gateway will be created. It can take the form of a button. When users click on it, they send their personal data to the PLRS. 
-Knowing that the PLRS only accepts xAPI format, if the data from the LMS does not have this format, the first call will be made to the LRC. Path: 
-    - "learner completes an activity on an LMS "
-    - "its learning records are stored in the associated LRS"
-    - "The user is asked about the terms of use and export of those learning records."
-    - "The user accepts them"
-    - "learning records are exported to PLRS by clicking a button"
-    - "BB Consent checked for learner consent"
-    - if necessary "LRC converts traces into xAPI"
-    - "LRS sends traces to PLRS"
-    - "Update of PLRS visual graphs and data"
+Knowing that the PLRS only accepts xAPI format, if the data from the LMS does not have this format, the first call will be made to the LRC. 
 
 - **Import learning traces from LMS to PLRS (in PLRS frontend)** 
-If the LMS the learner is using doesn't have this direct export to PLRS button, then they can choose to export their dataset from the LMS and then import it into PLRS. Path:
-  - "the learner adds a source in the PLRS: import dataset in any format"
-  - "The user is asked about the terms of use and import of those learning records."
-  - "The user accepts them"
-  - "BB Consent checked for learner consent"
-  - if necessary "LRC converts traces into xAPI"
-  - "LRS sends traces to PLRS"
-  - "adaptation of PLRS visual graphs and data"
+If the LMS the learner is using doesn't have this direct export to PLRS button, then they can choose to export their dataset from the LMS and then import it into PLRS. 
 
 - **Visualize learning traces in PLRS** 
 The aim is not to have a complete visualization of learning traces. It just needs to display a limited amount of information in the dashboard, such as: number of traces per day, certification in progress, certification acquired, etc. (tbd). \
-For a complete visualization, the PLRS can be connected to another application dedicated to this purpose. Path:
-  - "learners can view indicators and graphs linked to their learning traces"
+For a complete visualization, the PLRS can be connected to another application dedicated to this purpose. 
 
 - **Synchronize PLRS data with external LRS** 
-Students can permanently (or not) share their learning traces with an external LRS. Synchronization is a regular push operation. Whether it's to justify their progress to a school or to their employer, users are in control of their data. These data exchanges are in xAPI format. Path:  
-  - "In the PLRS frontend, the learner selects the data he wants to share with the chosen external LRS."
-  - "PLRS synchronizes with target LRS"
+Students can permanently (or not) share their learning traces with an external LRS. Synchronization is a regular push operation. Whether it's to justify their progress to a school or to their employer, users are in control of their data. These data exchanges are in xAPI format. 
+
 
 - **Local access to data for decentralized AI training** 
 This makes it possible to run computation on the data locally (within the PLRS) and only return the result. This way learner data do not exit their PLRS and limit privacy issues associated with sharing data externally.
