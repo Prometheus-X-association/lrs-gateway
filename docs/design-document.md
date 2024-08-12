@@ -193,6 +193,7 @@ class CC_PDC colorA
 class DVA_PDC colorA
 class DAI_PDC colorA
 ```
+The blocks depicted in the architecture graphic represent hypothetical functions, as their development has not yet been completed. However, we aim to communicate with the "consent contract" to transparently track users. This means that users will be able to personalize various parameters, such as the days of the week and hours they choose to be tracked. By prioritizing user control and consent, we aim to build trust and adhere to privacy regulations, ensuring users have a clear understanding and authority over their tracking preferences.
 
 PDC : Prometheus-X Dataspace Connector
 
@@ -620,28 +621,24 @@ PDC : Prometheus-X Dataspace Connector
 ## Dynamic Behaviour
 
 Behavior when exporting a dataset from the LMS :
-```mermaid
+
 sequenceDiagram
-   actor User as User
-   User->>LMS: Click on button to send traces to PLRS
-   LMS->>PDC_LMS:  Requests to send traces to PLRS
-   PDC_LMS->>Data_intermediary: Requests validation to send traces to PLRS
-   Data_intermediary->>Identity: Request for identity information
-   Identity->>Data_intermediary: Provide identity information
-   Data_intermediary->>Consent: Request for consent information
-   Consent->>Data_intermediary: Provide consent information
-   Data_intermediary->>Contract: Request for contract information
-   Contract->>Data_intermediary: Provide contract information
-   Data_intermediary->>PDC_LMS: Identity, consent and contract sent and approved
-   PDC_LMS->>Consent/Contract: Request profil consent of user
-   Consent/Contract->>PDC_LMS: Provide profil consent of user
-   PDC_LMS->>LMS: Grants the transfer
-   LMS->>LRS: Requires learning traces to be sent to PLRS
-   LRS->>PDC_LMS: Send dataset into xAPI format
-   PDC_LMS->>PDC_PLRS:Send dataset
-   PDC_PLRS->>PLRS:Send dataset
-   PLRS->>PLRS: Update visualization
-```
+    participant User
+    participant LRS
+    participant PDC_LRS
+    participant PDI
+    participant Data_Intermediary
+    participant PDC_PLRS
+    participant PLRS
+
+    User->>PDI: envoie son accord pour envoyer les traces au PLRS en cliquant sur le bouton
+    PDI->>PDC_LRS: Data exchange trigger (including consent)
+    PDC_LRS->>Data_Intermediary: Contract verification and policy
+    Data_Intermediary->>PDC_LRS: Contract and policies verified
+    PDC_LRS->>LRS: LRS gets data
+    LRS->>PDC_LRS: Send data to data consumer PDC
+    PDC_LRS->> PDC_PLRS:Send data to PDC PLRS
+    PDC_PLRS->>PLRS: Send data to PLRS
 PDC : Prometheus-X Dataspace Connector
 
 Behavior when importing a dataset from the PLRS :
