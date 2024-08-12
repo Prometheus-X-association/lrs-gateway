@@ -631,14 +631,15 @@ sequenceDiagram
     participant PDC_PLRS
     participant PLRS
 
-    User->>PDI: envoie son accord pour envoyer les traces au PLRS en cliquant sur le bouton
+    User->>PDI: Agreement sent to transfer traces to PLRS by clicking on the LMS button
     PDI->>PDC_LRS: Data exchange trigger (including consent)
-    PDC_LRS->>Data_Intermediary: Contract verification and policy
+    PDC_LRS->>Data_Intermediary: Contract verification and policies
     Data_Intermediary->>PDC_LRS: Contract and policies verified
     PDC_LRS->>LRS: LRS gets data
-    LRS->>PDC_LRS: Send data to data consumer PDC
+    LRS->>PDC_LRS: send data to PDC LRS
     PDC_LRS->> PDC_PLRS:Send data to PDC PLRS
     PDC_PLRS->>PLRS: Send data to PLRS
+
 ```
 PDC : Prometheus-X Dataspace Connector
 
