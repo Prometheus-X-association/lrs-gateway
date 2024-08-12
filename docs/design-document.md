@@ -621,7 +621,7 @@ PDC : Prometheus-X Dataspace Connector
 ## Dynamic Behaviour
 
 Behavior when exporting a dataset from the LMS :
-
+```mermaid
 sequenceDiagram
     participant User
     participant LRS
@@ -639,6 +639,7 @@ sequenceDiagram
     LRS->>PDC_LRS: Send data to data consumer PDC
     PDC_LRS->> PDC_PLRS:Send data to PDC PLRS
     PDC_PLRS->>PLRS: Send data to PLRS
+```
 PDC : Prometheus-X Dataspace Connector
 
 Behavior when importing a dataset from the PLRS :
