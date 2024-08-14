@@ -658,15 +658,23 @@ PDC : Prometheus-X Dataspace Connector
 Behavior when share a dataset from the PLRS :
 ```mermaid
 sequenceDiagram
-   actor User as User
-   User->>PLRS: Click to share dataset to an external LRS
-   PLRS->>PDC_PLRS: Send selected dataset
-   PDC_PLRS->>Data_intermediary: Contract information request
-   Data_intermediary->>Contract: Request for contract information
-   Contract->>Data_intermediary: Provide contract information
-   Data_intermediary->>PDC_PLRS: Contract sent and approved
+   actor User as user
+   participant PLRS as PLRS
+   participant PDI as PDI
+   participant PDC_PLRS as PDC PLRS
+   participant Data_intermediary as Data Intermediary
+   participant PDC_external as PDC External
+   participant External_LRS as External LRS
+
+   User->>PLRS: Click on the button to share a dataset with external source
+   PLRS->>PDI: Agreement sent to transfer traces to LRS (external source) by clicking on the PLRS button
+   PDI->>PDC_PLRS: Data exchange trigger (including consent)
+   PDC_PLRS->>Data_intermediary: Contract verification and policies
+   Data_intermediary->>PDC_PLRS: Contract and policies verified
+   PDC_PLRS->>PLRS: Requests the dataset from the PLRS
+   PLRS->>PDC_PLRS: PLRS sends data to PDC PLRS
    PDC_PLRS->>PDC_external: Send selected dataset
-   PDC_external->>external LRS: Send selected dataset
+   PDC_external->>External_LRS: Send dataset to external LRS
 ```
 PDC : Prometheus-X Dataspace Connector
 
