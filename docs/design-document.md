@@ -138,29 +138,33 @@ The PLRS is beneficial for future employers:
 
 - The data produced and/or consumed are learning records. These are logs of learning activity done by a user.
 
-- There are several standard formats for learning records (SCORM, xAPI, cmi5, IMS caliper)
-  
+- There are several standard formats for learning records (SCORM, xAPI, cmi5, IMS caliper).
 
 - The consensus among experts is that xAPI is the most promising standard for describing learning records.
 
 - Inokufu have published on Prometheus-X's github a state of the art study about learning records interoperability in 2023 (see [here](https://github.com/Prometheus-X-association/learning-records-interoperability-2023)). This study describes the various formats and explains why “we" have selected xAPI as the defacto format for learning records for DASES (Dataspace of Education & Skills).
 
-In summary, xAPI have been chosen over SCORM, IMS Caliper, and cmi5 for its unparalleled flexibility and comprehensive data tracking capabilities.
+In summary, xAPI has been chosen over SCORM, IMS Caliper, and cmi5 for its unparalleled flexibility and comprehensive data tracking capabilities.
 
-While SCORM has served the e-learning community well, its limitations in handling offline learning, detailed data reporting, and informal learning experiences became apparent. SCORM’s inability to adapt to the rapidly evolving tech world, including mobile devices and cloud-based technologies, hindered its efficacy.
+  - **SCORM:**
+    - While SCORM has served the e-learning community well, its limitations in handling offline learning, detailed data reporting, and informal learning experiences became apparent.
+    - SCORM’s inability to adapt to the rapidly evolving tech world, including mobile devices and cloud-based technologies, hindered its efficacy.
 
+  - **IMS Caliper:**
+    - IMS Caliper, though robust in tracking web-based digital learning environments, falls short in its versatility compared to xAPI.
+    - xAPI can track a wide range of learning experiences across multiple platforms, including mobile, games, simulations, and offline interactions. This makes it a far more adaptable solution for modern learning environments.
 
-IMS Caliper, though robust in tracking web-based digital learning environments, falls short in its versatility compared to xAPI. xAPI can track a wide range of learning experiences across multiple platforms, including mobile, games, simulations, and offline interactions. This makes it a far more adaptable solution for modern learning environments.
+  - **cmi5:**
+    - Although cmi5 effectively bridges SCORM and xAPI by combining xAPI's tracking capabilities with SCORM's structured control, it still lacks the full flexibility provided by xAPI.
+    - Additionally, xAPI presents better compatibility conditions with different LMS and authoring tools compared to cmi5, thereby fostering greater interoperability within the data space.
 
-Although cmi5 effectively bridges SCORM and xAPI by combining xAPI's tracking capabilities with SCORM's structured control, it still lacks the full flexibility provided by xAPI. Additionally, xAPI presents better compatibility conditions with different LMS and authoring tools compared to cmi5, thereby fostering greater interoperability within the data space.
+  - **xAPI:**
+    - The true strength of xAPI lies in its "extensions" attribute, allowing the capture of unique or granular details about any learning experience.
+    - This feature ensures that xAPI can be tailored to meet the specific needs of any organization, providing detailed and diverse data without being constrained by predefined parameters.
 
-The true strength of xAPI lies in its "extensions" attribute, allowing the capture of unique or granular details about any learning experience. This feature ensures that xAPI can be tailored to meet the specific needs of any organization, providing detailed and diverse data without being constrained by predefined parameters.
+- In xAPI, each learning record is a JSON statement. This JSON contains several parts: actor, verb, object, result, context, timestamp.
 
-In essence, xAPI's ability to provide a shared data format that facilitates easy data transfer between systems while enabling highly relevant and specific tracking aspects makes it the optimal choice for our evolving educational needs.
-
-- In xAPI, each learning record is a json statement. This json contains several parts: actor, verb, object, result, context, timestamp.
-
-- The most critical personal data are in general in the actor part. According to xAPI, one can use first name, last name or email as the actor identifier. However, in our case we always recommend using uuid to identify actors. This way our learning records are pseudonymized by default. As this won’t always be the case with other organizations connected to the dataspace.
+- The most critical personal data are in general in the actor part. According to xAPI, one can use first name, last name, or email as the actor identifier. However, in our case, we always recommend using UUID to identify actors. This way, our learning records are pseudonymized by default. As this won’t always be the case with other organizations connected to the dataspace.
 
 - If shared datasets are not in xAPI format, there is a BB ([Learning Records Converter](https://github.com/Prometheus-X-association/learning-records-converter)) that is part of the PTX dataspace that allows conversion to the chosen format for exchanges within the dataspace.
 
