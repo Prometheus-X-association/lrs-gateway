@@ -764,6 +764,23 @@ paths: \
                               description: Successful response
 ```
 
+## Codebase : Mockup version
+To get a functional understanding of this mockup and see some sample traces, go here : https://github.com/Prometheus-X-association/plrs/blob/main/docs/Images/PLRS%20-%20Mockup%20.pdf
+
+To have a write access to the traces make a request on this mockup document : https://docs.google.com/document/d/14F-7Q9_LMLnUqvDx8EzAVrVWhLo93P5dHB3c3acYNRg/edit?usp=sharing
+To have a read access to the traces make a request on this mockup document: https://docs.google.com/document/d/1lr1r_naA1FR77qQzOdxbiCH6SZsunFcqvHBJ2JPOlZI/edit?usp=sharing 
+
+### PUT
+description: Store a single statement as a single member of a set.
+
+### POST
+description: "Store a set of statements (or a single statement as a single member of a set).
+
+### GET
+description: Read a single xAPI Statement or multiple xAPI Statements.
+
+
+
 ## Test Specification
 
 
