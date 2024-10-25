@@ -46,226 +46,456 @@ While analyzing only 2 statements would yield limited insights, we have gathered
 
 ### The statements itself:
 
+
+
 `1725541038216x297089120079349500 accessed Devenir Pro en Analyse de données`
+
+
+
 #### Example of xAPI Statement
 
+
+
 ```json
+
 {
+
   "stored": "2024-09-06T09:34:23.975Z",
+
   "priority": "MEDIUM",
+
   "active": true,
+
   "client": "66b381ac128b7e5fbbaef81c",
+
   "lrs_id": "66b37b2f128b7e293caef818",
+
   "activities": [
+
     "https://becomino.com/board/devenir-pro-analyse-donnees-1648372285523x867799490361819100"
+
   ],
+
   "agents": [
+
     "https://becomino.com/users|1725541038216x297089120079349500"
+
   ],
+
   "statement": {
+
     "authority": {
+
       "objectType": "Agent",
+
       "name": "Mockup PLRS write",
+
       "mbox": "mailto:contact@inokufu.com"
+
     },
+
     "stored": "2024-09-06T09:34:23.975Z",
+
     "context": {
+
       "contextActivities": {
+
         "parent": [
+
           {
+
             "id": "https://becomino.com/home",
+
             "objectType": "Activity"
+
           }
+
         ],
+
         "category": [
+
           {
+
             "id": "https://becomino.com/category/404",
+
             "objectType": "Activity"
+
           }
+
         ],
+
         "grouping": [
+
           {
+
             "id": "https://becomino.com/board/404",
+
             "objectType": "Activity"
+
           }
+
         ]
+
       },
+
       "language": "fr"
+
     },
+
     "actor": {
+
       "account": {
+
         "homePage": "https://becomino.com/users",
+
         "name": "1725541038216x297089120079349500"
+
       },
+
       "objectType": "Agent"
+
     },
+
     "timestamp": "2024-09-05T13:31:29.777Z",
+
     "verb": {
+
       "id": "https://w3id.org/xapi/netc/verbs/accessed",
+
       "display": {
+
         "en-US": "accessed"
+
       }
+
     },
+
     "object": {
+
       "id": "https://becomino.com/board/devenir-pro-analyse-donnees-1648372285523x867799490361819100",
+
       "definition": {
+
         "name": {
+
           "fr": "Devenir Pro en Analyse de données"
+
         },
+
         "type": "http://adlnet.gov/expapi/activities/link"
+
       },
+
       "objectType": "Activity"
+
     }
+
   },
+
   "timestamp": "2024-09-05T13:31:29.777Z",
+
   "relatedActivities": [
+
     "https://becomino.com/board/devenir-pro-analyse-donnees-1648372285523x867799490361819100",
+
     "https://becomino.com/home",
+
     "https://becomino.com/board/404",
+
     "https://becomino.com/category/404"
+
   ]
+
 }
+
+```
+
 
 
 #### Example of xAPI Statement
 
-1725541038216x297089120079349500 liked Data Science: Analyse de données avec Python
+
+
+`1725541038216x297089120079349500 liked Data Science: Analyse de données avec Python`
+
+
 
 ```json
+
 {
+
   "stored": "2024-09-06T09:34:23.975Z",
+
   "priority": "MEDIUM",
+
   "active": true,
+
   "completedForwardingQueue": [],
+
   "failedForwardingLog": [],
+
   "client": "66b381ac128b7e5fbbaef81c",
+
   "lrs_id": "66b37b2f128b7e293caef818",
+
   "completedQueues": [
+
     "STATEMENT_FORWARDING_QUEUE",
+
     "STATEMENT_PERSON_QUEUE",
+
     "STATEMENT_QUERYBUILDERCACHE_QUEUE"
+
   ],
+
   "activities": [
+
     "https://www.udemy.com/course/analyse-et-visualisation-de-data-avec-python"
+
   ],
+
   "hash": "aabac6d68f7816d95a5e9436c8898cd05df32b57",
+
   "agents": [
+
     "https://becomino.com/users|1725541038216x297089120079349500"
+
   ],
+
   "statement": {
+
     "authority": {
+
       "objectType": "Agent",
+
       "name": "Mockup PLRS write",
+
       "mbox": "mailto:contact@inokufu.com"
+
     },
+
     "stored": "2024-09-06T09:34:23.975Z",
+
     "context": {
+
       "contextActivities": {
+
         "parent": [
+
           {
+
             "id": "https://becomino.com/board/devenir-pro-analyse-donnees-1648372285523x867799490361819100",
+
             "objectType": "Activity"
+
           }
+
         ],
+
         "category": [
+
           {
+
             "id": "https://becomino.com/category/numerique",
+
             "objectType": "Activity"
+
           }
+
         ],
+
         "grouping": [
+
           {
+
             "id": "https://becomino.com/board/devenir-pro-analyse-donnees",
+
             "objectType": "Activity"
+
           }
+
         ]
+
       },
+
       "language": "fr",
+
       "extensions": {
+
         "http://schema.inokufu.com/becomino/board": {
+
           "id": "https://becomino.com/board/devenir-pro-analyse-donnees",
+
           "name": {
+
             "fr": "Devenir Pro en Analyse de données"
+
           }
+
         }
+
       }
+
     },
+
     "actor": {
+
       "account": {
+
         "homePage": "https://becomino.com/users",
+
         "name": "1725541038216x297089120079349500"
+
       },
+
       "objectType": "Agent"
+
     },
+
     "timestamp": "2024-09-05T13:29:51.066Z",
+
     "version": "1.0.0",
+
     "id": "e54fd84e-97fa-4877-b6e0-4ed851110ac9",
+
     "verb": {
+
       "id": "https://w3id.org/xapi/acrossx/verbs/liked",
+
       "display": {
+
         "en-US": "liked"
+
       }
+
     },
+
     "object": {
+
       "id": "https://www.udemy.com/course/analyse-et-visualisation-de-data-avec-python",
+
       "definition": {
+
         "name": {
+
           "fr": "Data Science : Analyse de donnees avec Python"
+
         },
+
         "description": {
+
           "fr": "Si vous souhaitez entrer dans le monde de la Data science et apprendre a Analyser et Visualiser des donnees, ce cours est fait pour vous ! Ce cours traite des bibliotheques scientifiques de Python particulierement utilisees en Data Science: Numpy, Pandas et Matplotlib.Tout au long de la formation, o..."
+
         },
+
         "type": "http://adlnet.gov/expapi/activities/link",
+
         "extensions": {
+
           "http://schema.inokufu.com/learning-object/type": "MOOC",
+
           "http://schema.inokufu.com/learning-object/bloom": "understand",
+
           "http://schema.inokufu.com/learning-object/provider": "Udemy",
+
           "http://schema.inokufu.com/learning-object/picture": "https://img-c.udemycdn.com/course/750x422/1620090_0efb_4.jpg"
+
         }
+
       },
+
       "objectType": "Activity"
+
     }
+
   },
+
   "hasGeneratedId": true,
+
   "deadForwardingQueue": [],
+
   "voided": false,
+
   "verbs": [
+
     "https://w3id.org/xapi/acrossx/verbs/liked"
+
   ],
+
   "personaIdentifier": "66d9aad6536c52d8ba7b4248",
+
   "processingQueues": [],
+
   "person": {
+
     "_id": "66d9aad6e98283f3caea3109",
+
     "display": "1725541038216x297089120079349500 - https://becomino.com/users (xAPI Account)"
+
   },
+
   "__v": 1,
+
   "timestamp": "2024-09-05T13:29:51.066Z",
+
   "relatedActivities": [
+
     "https://www.udemy.com/course/analyse-et-visualisation-de-data-avec-python",
+
     "https://becomino.com/board/devenir-pro-analyse-donnees-1648372285523x867799490361819100",
+
     "https://becomino.com/board/devenir-pro-analyse-donnees",
+
     "https://becomino.com/category/numerique"
+
   ],
+
   "relatedAgents": [
+
     "https://becomino.com/users|1725541038216x297089120079349500",
+
     "mailto:contact@inokufu.com"
+
   ],
+
   "organisation": "626a340cccbcc9000aff1421",
+
   "_id": "66dacca07048fd001d44cec2",
+
   "registrations": [],
+
   "pendingForwardingQueue": []
+
 }
+
+```
+
+
 
 ## Use Cases
 
+
+
 We can consider possible scenarios in which xAPI statements like these could be shared:
 
+
+
 - A company/edtech providing courses that wants to send data to the future PLRS. This could test data portability.
+
 - A company/edtech that wants to analyze data and create graphs or personalize learning with data.
+
+
 
 ## Contact
 
+
+
 If you are interested in obtaining a read or write key, contact us directly. Send us your use case, the type of your data, the number of traces you want to send or receive, and what kind of trace you need.
 
+
+
 - **Sebastian**: [sebastian.utard@inokufu.com](mailto:sebastian.utard@inokufu.com)
+
 - **Lauriane**: [lauriane.marxer@inokufu.com](mailto:lauriane.marxer@inokufu.com)
+
+```
