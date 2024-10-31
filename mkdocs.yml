@@ -1,0 +1,87 @@
+site_name: Ralph
+site_url: https://openfun.github.io/ralph/
+site_description: A learning events processor to feed your LRS
+site_author: Open FUN (France Universite Numerique)
+
+repo_name: openfun/ralph
+repo_url: https://github.com/openfun/ralph/
+
+copyright: 2020-present France Université Numérique
+
+theme:
+    custom_dir: docs/theme
+    name: material
+    palette:
+        primary: pink
+    favicon: img/favicon.png
+    logo: img/ralph-white.png
+    features:
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - navigation.indexes 
+    - navigation.tabs
+
+markdown_extensions:
+    - admonition
+    - attr_list
+    - mkdocs_click
+    - smarty
+    - toc:
+        permalink: True
+        separator: "_"
+    - pymdownx.highlight:
+        anchor_linenums: true
+        line_spans: __span
+        pygments_lang_class: true
+    - pymdownx.inlinehilite
+    - pymdownx.snippets
+    - pymdownx.superfences
+    - pymdownx.details
+    - pymdownx.tabbed:
+        alternate_style: true
+
+nav:
+    - Ralph: index.md
+    - Features:
+        - LRS HTTP server: features/api.md
+        - Backends for data storage: features/backends.md
+        - Learning statements models: features/models.md
+    - Tutorials:
+        - Ralph CLI Guide: tutorials/cli.md
+        - Ralph LRS Guide: 
+            - tutorials/lrs/index.md
+            - tutorials/lrs/first-steps.md
+            - Authentication:
+                - tutorials/lrs/authentication/index.md
+                - tutorials/lrs/authentication/basic.md
+                - tutorials/lrs/authentication/oidc.md
+            - tutorials/lrs/backends.md
+            - tutorials/lrs/multitenancy.md
+            - Additional configurations:
+                - tutorials/lrs/forwarding.md
+                - tutorials/lrs/sentry.md
+        - Ralph Library Guide: tutorials/library.md
+        - Ralph Helm chart: tutorials/helm.md
+        - Development Guide: tutorials/development_guide.md
+    - Contributing: contribute.md
+    - Migration: UPGRADE.md
+    - About the project:
+        - Changelog: CHANGELOG.md
+        - License: LICENSE.md
+
+plugins:
+    - neoteroi.mkdocsoad:
+        use_pymdownx: true
+    - search
+    - mkdocstrings
+    - mike:
+        canonical_version: latest
+        version_selector: true
+
+extra:
+    version:
+        provider: mike
+
+extra_css:
+    - css/mkdocsoad.css
