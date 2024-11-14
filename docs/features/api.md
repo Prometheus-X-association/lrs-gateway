@@ -1,8 +1,8 @@
 # LRS HTTP server
 
-Ralph implements the Learning Record Store (LRS) [specification](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#part-three-data-processing-validation-and-security) defined by [ADL](https://github.com/adlnet).
+PLRS implements the Learning Record Store (LRS) [specification](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#part-three-data-processing-validation-and-security) defined by [ADL](https://github.com/adlnet).
 
-Ralph LRS, based on [FastAPI](https://fastapi.tiangolo.com/), has the following key features:
+PLRS, based on [FastAPI](https://fastapi.tiangolo.com/), has the following key features:
 
 - Supports of multiple databases through different [backends](../tutorials/lrs/backends.md)
 - Secured with multiple [authentication methods](../tutorials/lrs/authentication/index.md)
