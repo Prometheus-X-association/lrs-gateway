@@ -19,7 +19,7 @@ Please note that the following visuals are intended as projections only. UX/UI w
 
 **Key functionalities:**
 
-- export learning traces from LMS to PLRS (in LMS frontend)
+- reception of learning traces into the PLRS (action of an external source)
 
 - import learning traces from LMS to PLRS (in PLRS frontend)
 
@@ -31,18 +31,18 @@ Please note that the following visuals are intended as projections only. UX/UI w
 
 **Value-added:**
 
-- lifelong availability of my learning data
+- lifelong availability of my learning data (data retention for 80 years)
 
 - better learning path/career analysis
 
-- edge computing
+- edge computing : improve AIs
 
 ### Features/main functionalities
 
 **Features**: 
 
-- **Export learning traces from LMS to PLRS (in LMS frontend)** 
-Depending on the LMS, a gateway will be created. It can take the form of a button. When users click on it, they send their personal data to the PLRS. 
+- **Reception of learning traces into the PLRS (action of an external source)** 
+An external source can send traces via API to the PLRS. The action comes from the external source. This may be a plugin on an LMS that triggers the sending of traces to the PLRS. Depending on the LMS, a gateway will be created. It can take the form of a button. When users click on it, they send their personal data to the PLRS. The plugin is not supported by PLRS
 Knowing that the PLRS only accepts xAPI format, if the data from the LMS does not have this format, the first call will be made to the LRC. 
 
 - **Import learning traces from LMS to PLRS (in PLRS frontend)** 
@@ -53,7 +53,7 @@ The aim is not to have a complete visualization of learning traces. It just need
 For a complete visualization, the PLRS can be connected to another application dedicated to this purpose. 
 
 - **Synchronize PLRS data with external LRS** 
-Students can permanently (or not) share their learning traces with an external LRS. Synchronization is a regular push operation. Whether it's to justify their progress to a school or to their employer, users are in control of their data. These data exchanges are in xAPI format. 
+Students can permanently (or not) share their learning traces with an external LRS. Synchronization is a regular push operation. Whether it's to justify their progress to a school or to their employer, users are in control of their data. These data exchanges are in xAPI format. Regular tests will be performed and an error message will be sent if statements are not received.
 
 
 - **Local access to data for decentralized AI training** 
