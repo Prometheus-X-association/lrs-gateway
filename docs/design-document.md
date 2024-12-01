@@ -92,19 +92,17 @@ The PLRS is beneficial for future employers:
 | Requirement ID | Short description | BB input format | BB output format | Any other constraints | Verified by scenario | Requirement type |
 |---|---|---|---|---|---|---|
 | BB-REQ_ID__1 | PLRS must request building block consent via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
-| BB-REQ_ID__1.1 | Individuals must consent to the export, import, and use of their data in PLRS. | API call | API response | If the answer is no, the data cannot be used, nor transferred into or from the PLRS. If the answer is yer, the data can be used, and transferred into or from the PLRS. | BB-SC-PLRS-01 | DEP |
+| BB-REQ_ID__1.1 | Individuals must consent to the export, import, and use of their data in PLRS. | API call | API response | If the answer is no, the data cannot be used, nor transferred into or from the PLRS. If the answer is yer, the data can be used, and transferred into or from the PLRS. | BB-SC-PLRS-01 | FUN |
 | BB-REQ_ID__1.2 | Consent must be asked and verified in less than 30s | API call | API response |  | BB-SC-PLRS-02 | PERF |
-| BB-REQ_ID__2 | PLRS must request contracts from the building block consent via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
-| BB-REQ_ID__2.1 | The PLRS must check with the contract manager through the Dataspace connector if a contract for the corresponding organization exists | API call | API response | If the answer is no, the data cannot be accessed, nor transferred into or from the PLRS. If the answer is yer, the data can be accessed, and transferred into or from the PLRS. | BB-SC-PLRS-03 | DEP |
+| BB-REQ_ID__2 | PLRS must request contracts from the building block contract via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
+| BB-REQ_ID__2.1 | The PLRS must check with the contract manager through the Dataspace connector if a contract for the data provider or the data consumer (The LMS for functionality 1 and 2) | API call | API response | If the answer is no, the data cannot be accessed, nor transferred into or from the PLRS. If the answer is yer, the data can be accessed, and transferred into or from the PLRS. | BB-SC-PLRS-03 | DEP |
 | BB-REQ_ID__2.2 | Contract must be asked and verified in less than 30s | API call | API response |  | BB-SC-PLRS-04 | PERF |
 | BB-REQ_ID__3 | PLRS must connect with BB Consent/contracts negotiating agent (EDGE-Skill) |  |  |  |  |  |
-| BB-REQ_ID__3.1 | BB must send the individual's consent profile when the PLRS asks to adjust what and when they are tracked: all-time connection, only on weekends, certain keywords, etc. | API call | consent profile | Request consent 1 time, then update if the profile is modified in the corresponding building bloc. Could be asynchronous | BB-SC-PLRS-05 | DEP |
-| BB-REQ_ID__3.2 | BB must update the individual's consent profile to PLRS when there are changes | consent profile | / | update if the profile is modified in the corresponding building bloc. Could be asynchronous | BB-SC-PLRS-06 | DEP |
-| BB-REQ_ID__4 | PLRS should connect with BB Data veracity assurance (EDGE-Skill) | API call | API response |  |  |  |
-| BB-REQ_ID__4.1 | BB Data veracity assurance should check dataset homogeneity and detail | xAPI (DASES) dataset | response |  | BB-SC-PLRS-07 | FUN |
+| BB-REQ_ID__3.1 | BB Consent/contracts negotiating agent must send the individual's consent profile when the PLRS asks to adjust what and when they are tracked: all-time connection, only on weekends, certain keywords, etc. | API call from PLRS | consent profile | Request consent 1 time, then update if the profile is modified in the corresponding building bloc. Could be asynchronous | BB-SC-PLRS-05 | FUN |
+| BB-REQ_ID__3.2 | BB Consent/contracts negotiating agent must update the individual's consent profile to PLRS when there are changes | consent profile | API call from consent/contracts agent | update if the profile is modified in the corresponding building bloc. Could be asynchronous | BB-SC-PLRS-06 | FUN |
 | BB-REQ_ID__5 | PLRS should connect with BB Decentralized AI training (EDGE-Skill) |  |  |  |  |  |
 | BB-REQ_ID__5.1 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS | API interaction | API interaction | Data transfer via xAPI. Could be asynchronous | BB-SC-PLRS-08 | FUN |
-| BB-REQ_ID__5.2 | Running the algorithm must be done in less than 2 min | API call | API response |  | BB-SC-PLRS-09 | PERF |
+| BB-REQ_ID__5.2 | Running the algorithm must be done in less than 2 min (times TBD)| API call | API response |  | BB-SC-PLRS-09 | PERF |
 
 ## Integrations
 
@@ -820,7 +818,19 @@ The PLRS testing strategy will focus on ensuring the accuracy, reliability, and 
 
 We will run manual and automatic tests.
 
+### Validate requirements
+Requirements validation tests
 
+| Verified by scenario| Description | Test | Status |
+|---|---|---|---|
+| BB-SC-PLRS-01 | Individuals must consent to the export, import, and use of their data in PLRS| Try to export/import the data without consent in the PDI  |  Not tested yet |
+| BB-SC-PLRS-02 | Consent must be asked and verified in less than 30s | Counting exchange time | Not tested yet |
+| BB-SC-PLRS-03 |The PLRS must check with the contract manager through the Dataspace connector if a contract for the data provider or the data consumer (The LMS for functionality 1 and 2) | try to provoke a data exchange without a contract | Not tested yet |
+| BB-SC-PLRS-04 | Contract must be asked and verified in less than 30s |  Verfified time counting  | Not tested yet |
+| BB-SC-PLRS-05 | BB must send the individual's consent profile when the PLRS asks to adjust what and when they are tracked: all-time connection, only on weekends, certain keywords, etc. | unit test  | Not tested yet |
+| BB-SC-PLRS-06 | BB must update the individual's consent profile to PLRS when there are changes | unit test   | Not tested yet |
+| BB-SC-PLRS-08 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS | Try to run various algorithm  | Not tested yet  |
+| BB-SC-PLRS-09 | Running the algorithm must be done in less than 2 min |  Counting time to run the algorithm   | Not tested yet  |
 
 #### Manual Scenario
 
