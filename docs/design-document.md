@@ -203,7 +203,13 @@ PDC : Prometheus-X Dataspace Connector
 
 ## Input / Output Data
 
-Input and output data are in the same format: xAPI.
+In a Personal Learning Record Store (PLRS), the input and output processes revolve around the handling of xAPI statements, which are formatted as JSON files. The LRS serves as a repository for learning experiences and activities, capturing detailed data through these xAPI statements. These statements typically include information about the actor (learner), verb (action), and object (activity or resource), providing a standardized way to record and track learning interactions. 
+
+The Personal Learning Record Store is designed to accommodate a wide range of learning traces, with the fundamental requirement being that they adhere to the xAPI format. Unlike systems that may require specific types of traces, our approach is more flexible, accepting any learning-related data as long as it is structured according to the xAPI specification. This inclusivity ensures that we capture a diverse array of learning activities, providing a comprehensive view of learner interactions and experiences. However, it's important to note that currently we do not have mechanisms in place to verify the authenticity of whether a trace is indeed in the xAPI format. This means that while we are open to receiving various types of learning data, ensuring its proper format relies on the accurate implementation of xAPI by data providers. The data sent can be a rating for an evaluation, a search, access to a page, etc. Each piece of information, no matter how small, is an indication of learning.
+
+[More details on xAPI statement implementation](https://xapi.com/statements-101/)
+
+[Example of JSON file](https://github.com/Prometheus-X-association/plrs/blob/main/data/statements.json.gz)
 
 Example of Becomino learning traces for an access : 
 ```json
