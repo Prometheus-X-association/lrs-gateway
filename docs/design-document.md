@@ -752,22 +752,9 @@ External components and licenses:
 
 ## OpenAPI Specification
 
-*In the future: link your OpenAPI spec here.*
+The curren version of the OpenAPI specification can be found here:
 
-```yml
-openapi: 3.0.0 \
-info: \
-     version: 0.0.1 \
-     title: Personal Learning Record Store \
-   description: Personal Learning Record Store (LRS) allows individuals to store and manage their own learning records in their cloud drive. PLRS allows individuals to keep track of their learning activities, achievements, and progress through their whole life. They can easily share these data with others if, or when, they choose to. \
-paths: \
-     /list: \
-          get: \
-               description: Returns a list of stuff \
-                    responses: \
-                         '200': \
-                              description: Successful response
-```
+[Personal Learning Records Store BB - OpenAPI specification](https://github.com/Prometheus-X-association/plrs/blob/main/docs/features/openapi.json)
 
 ## Codebase : Mockup version
 
