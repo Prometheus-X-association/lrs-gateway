@@ -25,7 +25,7 @@ Please note that the following visuals are intended as projections only. UX/UI w
 
 - visualize learning traces in PLRS
 
-- synchronize PLRS data with external LRS (regular push)
+- synchronize PLRS data with external LRS (regular or ponctual push)
 
 - local access to data for edge computing
 
@@ -42,7 +42,7 @@ Please note that the following visuals are intended as projections only. UX/UI w
 **Features**: 
 
 - **Reception of learning traces into the PLRS (action of an external source)** 
-An external source can send traces via API to the PLRS. The action comes from the external source. This may be a plugin on an LMS that triggers the sending of traces to the PLRS. Depending on the LMS, a gateway will be created. It can take the form of a button. When users click on it, they send their personal data to the PLRS. The plugin is not supported by PLRS
+An external source can send traces via API to the PLRS. The action comes from the external source. This may be a plugin on an LMS that triggers the sending of traces to the PLRS. Depending on the LMS, a gateway will be created. It can take the form of a button. When users click on it, they send their personal data to the PLRS. The plugin is not supported by PLRS.
 Knowing that the PLRS only accepts xAPI format, if the data from the LMS does not have this format, the first call will be made to the LRC. 
 
 - **Import learning traces from LMS to PLRS (in PLRS frontend)** 
@@ -97,12 +97,9 @@ The PLRS is beneficial for future employers:
 | BB-REQ_ID__2 | PLRS must request contracts from the building block contract via the Prometheus-X Dataspace Connector | API call | API response |  |  |  |
 | BB-REQ_ID__2.1 | The PLRS must check with the contract manager through the Dataspace connector if a contract for the data provider or the data consumer (The LMS for functionality 1 and 2) | API call | API response | If the answer is no, the data cannot be accessed, nor transferred into or from the PLRS. If the answer is yer, the data can be accessed, and transferred into or from the PLRS. | BB-SC-PLRS-03 | DEP |
 | BB-REQ_ID__2.2 | Contract must be asked and verified in less than 30s | API call | API response |  | BB-SC-PLRS-04 | PERF |
-| BB-REQ_ID__3 | PLRS must connect with BB Consent/contracts negotiating agent (EDGE-Skill) |  |  |  |  |  |
-| BB-REQ_ID__3.1 | BB Consent/contracts negotiating agent must send the individual's consent profile when the PLRS asks to adjust what and when they are tracked: all-time connection, only on weekends, certain keywords, etc. | API call from PLRS | consent profile | Request consent 1 time, then update if the profile is modified in the corresponding building bloc. Could be asynchronous | BB-SC-PLRS-05 | FUN |
-| BB-REQ_ID__3.2 | BB Consent/contracts negotiating agent must update the individual's consent profile to PLRS when there are changes | consent profile | API call from consent/contracts agent | update if the profile is modified in the corresponding building bloc. Could be asynchronous | BB-SC-PLRS-06 | FUN |
-| BB-REQ_ID__5 | PLRS should connect with BB Decentralized AI training (EDGE-Skill) |  |  |  |  |  |
-| BB-REQ_ID__5.1 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS | API interaction | API interaction | Data transfer via xAPI. Could be asynchronous | BB-SC-PLRS-08 | FUN |
-| BB-REQ_ID__5.2 | Running the algorithm must be done in less than 2 min (times TBD)| API call | API response |  | BB-SC-PLRS-09 | PERF |
+| BB-REQ_ID__3 | PLRS should connect with BB Decentralized AI training (EDGE-Skill) |  |  |  |  |  |
+| BB-REQ_ID__3.1 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS | API interaction | API interaction | Data transfer via xAPI. Could be asynchronous | BB-SC-PLRS-05 | FUN |
+| BB-REQ_ID__3.2 | Running the algorithm must be done in less than 2 min (times TBD)| API call | API response |  | BB-SC-PLRS-06 | PERF |
 
 ## Integrations
 
@@ -110,11 +107,8 @@ The PLRS is beneficial for future employers:
 
 | Category                                    | Why?                                      | How?                                                                     |
 |---------------------------------------------|-------------------------------------------|--------------------------------------------------------------------------|
-| Interact with Decentralized AI training     | train AI model                            | send anonymized (or not) data to train AI models                         |
-| Interact with Data veracity assurance       | Ensure that data exploitation is feasible<br>Ensure data consistency | Send access to dataset                                                  |
-| Interact with consent/contract              | Transparency on data transfer             | Identify data import period (date, time, week)<br>Identify data export period (date, time, week, organization) |
-| Interact with Distributed data visualization| Visualize the learner's skills            | Send dataset in xAPI format<br>Asynchronous                             |
-| Interact with LRC                           | Harmonize data in the PLRS in xAPI        | Convert any dataset to xAPI format                                       |
+| Interact with Decentralized AI training (future functionality)| train AI model| send anonymized (or not) data to train AI models                         |
+| Interact with LRC  (future functionality)| Harmonize data in the PLRS in xAPI | Convert any dataset to xAPI format|
 
 
 ### Integrations via Connector
@@ -161,43 +155,40 @@ The PLRS is beneficial for future employers:
 
 block-beta
 
-columns 7
+columns 3
 
-LMSExport:1 
-LMS_PDC:1 
-PLRS_PDC:1
-
-PLRS:1
-
-PLRS_PDC_:1
-
-block:group3
-columns 1
-CC_PDC DVA_PDC DAI_PDC
+block:group1
+columns 3
+LMS_orga1 LRS_orga1 LRS_PDC1 space space space LMS_orga2 LRS_orga2 LRS_PDC2 space space space LMS_orga3 LRS_orga3 LRS_PDC3
 end
 
-block:group4
+PLRS_PDC
+
+block:group2
 columns 1
-ConsentContracts DataVeracityAssurance DecentralizedAItraining
+PLRS_user1 PLRS_user2 PLRS_user3 PLRS_user4
 end
+
 
 classDef colorA fill:#D22FF7,color:#fff
 classDef colorEx fill:#01D1D1,color:#fff
-classDef colorED fill:#6E7176,color:#fff
-class LMSExport colorEx
-class PLRS colorED
-class EdgeComputing colorED
-class ConsentContracts colorED
-class DataVeracityAssurance colorED
-class DecentralizedAItraining colorED
+classDef colorMP fill:#e69138,color:#fff
+class LMS_orga1 colorEx
+class LMS_orga2 colorEx
+class LMS_orga3 colorEx
+class LRS_orga1 colorEx
+class LRS_orga2 colorEx
+class LRS_orga3 colorEx
 class PLRS_PDC colorA
-class LMS_PDC colorA
-class PLRS_PDC_ colorA
-class CC_PDC colorA
-class DVA_PDC colorA
-class DAI_PDC colorA
+class LRS_PDC1 colorA
+class LRS_PDC2 colorA
+class LRS_PDC3 colorA
+class PLRS_user1 colorMP
+class PLRS_user2 colorMP
+class PLRS_user3 colorMP
+class PLRS_user4 colorMP
 ```
-The blocks depicted in the architecture graphic represent hypothetical functions, as their development has not yet been completed. However, we aim to communicate with the "consent contract" to transparently track users. This means that users will be able to personalize various parameters, such as the days of the week and hours they choose to be tracked. By prioritizing user control and consent, we aim to build trust and adhere to privacy regulations, ensuring users have a clear understanding and authority over their tracking preferences.
+The blocks depicted in the architecture graphic represent hypothetical functions, as their development has not yet been completed. By prioritizing user control and consent, we aim to build trust and adhere to privacy regulations, ensuring users have a clear understanding and authority over their tracking preferences.
 
 PDC : Prometheus-X Dataspace Connector
 
@@ -568,18 +559,6 @@ Example of Becomino learning traces for a search :
 classDiagram
    PLRS <|-- PLRS_PDC
    PLRS_PDC <|-- PLRS
-   CC_PDC <|-- Consent_Contracts
-   Consent_Contracts <|-- CC_PDC
-   DVA_PDC <|-- Data_veracity_assurance
-   Data_veracity_assurance <|-- DVA_PDC 
-   DAI_PDC <|-- Decentralized_AI_training
-   Decentralized_AI_training <|-- DAI_PDC
-   PLRS_PDC <|-- CC_PDC
-   CC_PDC <|-- PLRS_PDC
-   PLRS_PDC <|-- DVA_PDC
-   DVA_PDC <|-- PLRS_PDC
-   PLRS_PDC <|-- DAI_PDC
-   DAI_PDC <|-- PLRS_PDC
    PLRS: update()
    PLRS: exoprt_lms()
    PLRS: import_lms()
@@ -592,44 +571,8 @@ classDiagram
      contract()
      consent()
    }
-   class CC_PDC{
-     identity()
-     catalog()
-     contract()
-     consent()
-   }
-   class DVA_PDC{
-     identity()
-     catalog()
-     contract()
-     consent()
-   }
-   class DAI_PDC{
-     identity()
-     catalog()
-     contract()
-     consent()
-   }
-   class Consent_Contracts{
-     bool week[7]
-     int begin[7]
-     int end[7]
-     string trigger_keywords[]
-     add_trigger_keyword(string)
-     change_track()
-   }
-   class Data_veracity_assurance{
-     bool homogeneous
-     homogeneous()
-   }
-   class Decentralized_AI_training{
-     run_algo()
-   }
 ```
 PDC : Prometheus-X Dataspace Connector
-
-The blocks depicted in the architecture graphic represent hypothetical functions, as their development has not yet been completed. However, we aim to communicate with the "consent contract" to transparently track users. This means that users will be able to personalize various parameters. Communication with the "data veracity assurance" will aim to harmonize data. As for "decentralize AI training", the aim is to send them anonymized (or non-anonymized) data to improve AI.
-
 
 ## Dynamic Behaviour
 
@@ -656,7 +599,7 @@ sequenceDiagram
 ```
 PDC : Prometheus-X Dataspace Connector
 
-Behavior when importing a dataset from the PLRS :
+Behavior when importing a dataset from the PLRS (future fonctionality):
 
 ```mermaid
 sequenceDiagram
