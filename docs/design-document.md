@@ -27,7 +27,7 @@ Please note that the following visuals are intended as projections only. UX/UI w
 
 - synchronize PLRS data with external LRS (regular or ponctual push)
 
-- local access to data for edge computing
+- local access to data for edge computing (feature available in second version)
 
 **Value-added:**
 
@@ -35,14 +35,14 @@ Please note that the following visuals are intended as projections only. UX/UI w
 
 - better learning path/career analysis
 
-- edge computing : improve AIs
+- edge computing : improve AIs 
 
 ### Features/main functionalities
 
 **Features**: 
 
 - **Reception of learning traces into the PLRS (action of an external source)** 
-An external source can send traces via API to the PLRS. The action comes from the external source. This may be a plugin on an LMS that triggers the sending of traces to the PLRS. Depending on the LMS, a gateway will be created. It can take the form of a button. When users click on it, they send their personal data to the PLRS. The plugin is not supported by PLRS.
+An external source can send traces via API to the PLRS. The action comes from the external source. This may be a plugin on an LMS that triggers the sending of traces to the PLRS. Depending on the LMS, a gateway will be created. It can take the form of a button (PLRS does not develop this button in LMSs). When users click on it, they send their personal data to the PLRS. The plugin is not supported by PLRS.
 Knowing that the PLRS only accepts xAPI format, if the data from the LMS does not have this format, the first call will be made to the LRC. 
 
 - **Import learning traces from LMS to PLRS (in PLRS frontend)** 
@@ -56,7 +56,7 @@ For a complete visualization, the PLRS can be connected to another application d
 Students can permanently (or not) share their learning traces with an external LRS. Synchronization is a regular push operation. Whether it's to justify their progress to a school or to their employer, users are in control of their data. These data exchanges are in xAPI format. Regular tests will be performed and an error message will be sent if statements are not received.
 
 
-- **Local access to data for decentralized AI training** 
+- **Local access to data for decentralized AI training**  feature available in second version.
 This makes it possible to run computation on the data locally (within the PLRS) and only return the result. This way learner data do not exit their PLRS and limit privacy issues associated with sharing data externally.
 
 ### Technical usage scenarios
@@ -671,21 +671,20 @@ If criticality is greater than 10, then preventive action must be taken. If not,
 
 | ID  | Function involved                                  | Description of risk                                               | Effect of failure                                              | Cause of failure                                               | Evaluation              | Preventive actions                                                                 |
 |-----|----------------------------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------|-----------------------------------------------------------------|-------------------------|------------------------------------------------------------------------------------|
-| 1   | export/import learning statements from LMS to PLRS | Data may be lost during migration                                 | The student doesn't have his tracks in his PLRS                | Incorrect connection between PLRS and LMS                      | Detection: 2 Occurrence: 2 Severity: 9 Criticality: 36        | Set up recurring connection tests       |
-| 2   | export/import learning statements from LMS to PLRS | LMS statements are not in xAPI format                             | LMS and PLRS cannot communicate with each other                | LMS-specific data format                                       | Detection: 1 Occurrence: 4 Severity: 10 Criticality: 40        | Setting up an LRC between LMS and PLRS |
-| 3   | export/import learning statements from LMS to PLRS | Data could be transmitted to other non-targeted LRSs              | Exported data may be accessible to unauthorized persons         | They are not properly secured                                  | Detection: 6 Occurrence: 1 Severity: 9 Criticality: 54         | Implementation of the PDC, which makes data exchange completely secure                |
-| 4   | export/import learning statements from LMS to PLRS | The same data can be exported several times                       | Wrong visualization and learning path                          | Duplicate data                                                 | Detection: 1 Occurrence: 6 Severity: 6 Criticality: 36         | Have a program that detects duplicates     |
-| 5   | export/import learning statements from LMS to PLRS | The PLRS doesn't have enough storage space for all statements     | No more statement import/export                                | Too little storage                                             | Detection: 1 Occurrence: 3 Severity: 9 Criticality: 24         | Test the cloud service's scalability      |
-| 6   | export/import learning statements from LMS to PLRS | The system may require downtime for large imports/exports          | Disrupting normal operations                                   | Low-performance servers                                        | Detection: 1 Occurrence: 3 Severity: 4 Criticality: 12         |  Test the cloud service's scalability |
-| 7   | export/import learning statements from LMS to PLRS | Graphs don't update                                               | Poor information on learning path                              | Slow update due to servers                                     | Detection: 1 Occurrence: 2 Severity: 2 Criticality: 4          |                                    |
-| 8   | export/import learning statements from LMS to PLRS | Poorly designed graphics                                          | No use of the platform                                         | Graphs are misleading                                          | Detection: 4 Occurrence: 3 Severity: 8 Criticality: 96         |Conduct pre-development workshops to ascertain user requirements |
-| 9   | export/import learning statements from LMS to PLRS | Wrong design choices: colors, shapes, ...                         | No use of the platform                                         | Visual choices such as colors and graphics can subliminally influence the perception of data. Graphs are non-inclusive | Detection: 4 Occurrence: 2 Severity: 8 Criticality: 96         |  Conduct pre-development workshops to ascertain user requirements and use accessibility tools |
-| 10 | export/import learning statements from LMS to PLRS              | The possibility of data conflicts can compromise information integrity | Distorted data                                               | Changes are made simultaneously in both LRS                    | Detection: 7 Occurrence: 5 Severity: 7 Criticality: 196        | Conduct pre-development workshops to ascertain user requirements and use accessibility tools                |
-| 11  | export/import learning statements from LMS to PLRS            | Synchronization processes can consume a lot of resources          | Disrupting normal operations                                   | Impacting the performance of real-time LRS systems             | Detection: 1 Occurrence: 3 Severity: 3 Criticality: 15         | Synchronize regularly, not in real time |
-| 12  | synchronize PLRS data with external LRS (regular push) | The synchronization process can require downtime that affects system availability, especially when large quantities of data need to be synchronized. | Reconnecting the PLRS and the new LRS/LMS                     | Low-performance servers                                        | Detection: 1 Occurrence: 2 Severity: 4 Criticality: 12         | Test the cloud service's scalability                                                |
-| 13  | synchronize PLRS data with external LRS (regular push) | The organization may decide to change its LRS/LMS                | No learner monitoring of synchronization. No data transfer transparency | Change of LRS/LMS                                              | Detection: 1 Occurrence: 4 Severity: 3 Criticality: 2          |  |
-| 14  | synchronize PLRS data with external LRS (regular push) | Make sure that synchronization has been successful                | Distorted data                                               | No documentation                                               | Detection: 1 Occurrence: 3 Severity: 7 Criticality: 12         | Update documentation/history of all actions (import/export, synchronization) |
-| 15  | synchronize PLRS data with external LRS (regular push) | Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction | Distorted data                                               | Errors in the synchronization                                   | Detection: 7 Occurrence: 3 Severity: 7 Criticality: 147        | Have a maintenance team    |
+| Error-Scenario_1   | export/import learning statements from LMS to PLRS | Data may be lost during migration| The student doesn't have his tracks in his PLRS| Incorrect connection between PLRS and LMS| Detection: 1 Occurrence: 2 Severity: 4 Criticality: 8||
+| Error-Scenario_2   | export/import learning statements from LMS to PLRS | LMS statements are not in xAPI format| LMS and PLRS cannot communicate with each other| LMS-specific data format| Detection: 1 Occurrence: 4 Severity: 8 Criticality: 32| Setting up an LRC between LMS and PLRS |
+| Error-Scenario_3   | export/import learning statements from LMS to PLRS | Data could be transmitted to other non-targeted LRSs| Exported data may be accessible to unauthorized persons| They are not properly secured| Detection: 6 Occurrence: 1 Severity: 9 Criticality: 54|Tracing output (PDC to PDC)|
+| Error-Scenario_4   | export/import learning statements from LMS to PLRS | The same data can be exported several times| Wrong visualization and learning path| Duplicate data| Detection: 1 Occurrence: 6 Severity: 6 Criticality: 36| Have a program that detects duplicates|
+| Error-Scenario_5   | export/import learning statements from LMS to PLRS | The PLRS doesn't have enough storage space for all statements| No more statement import/export  | Too little storage| Detection: 1 Occurrence: 3 Severity: 9 Criticality: 27| Test the cloud service's scalability|
+| Error-Scenario_6   | export/import learning statements from LMS to PLRS | The system may require downtime for large imports/exports| Disrupting normal operations| Low-performance servers| Detection: 1 Occurrence: 3 Severity: 4 Criticality: 12|  Exponential dispatch call |
+| Error-Scenario_7   | export/import learning statements from LMS to PLRS | Graphs don't update| Poor information on learning path| Slow update due to servers| Detection: 1 Occurrence: 2 Severity: 2 Criticality: 4||
+| Error-Scenario_8   | export/import learning statements from LMS to PLRS | Poorly designed graphics| No use of the platform| Graphs are misleading| Detection: 4 Occurrence: 3 Severity: 8 Criticality: 96 |Conduct pre and post development workshops to ascertain user requirements |
+| Error-Scenario_9   | export/import learning statements from LMS to PLRS | Wrong design choices: colors, shapes, ...| No use of the platform| Visual choices such as colors and graphics can subliminally influence the perception of data. Graphs are non-inclusive | Detection: 4 Occurrence: 2 Severity: 8 Criticality: 64|  Conduct pre and post development workshops to ascertain user requirements and use accessibility tools |
+| Error-Scenario_10  | export/import learning statements from LMS to PLRS| Synchronization processes can consume a lot of resources| Disrupting normal operations| Impacting the performance of real-time LRS systems| Detection: 1 Occurrence: 3 Severity: 3 Criticality: 9||
+| Error-Scenario_11  | synchronize PLRS data with external LRS (regular push) | The synchronization process can require downtime that affects system availability, especially when large quantities of data need to be synchronized. | Reconnecting the PLRS and the new LRS/LMS| Low-performance servers| Detection: 1 Occurrence: 2 Severity: 4 Criticality: 8||
+| Error-Scenario_12  | synchronize PLRS data with external LRS (regular push) | The organization may decide to change its LRS/LMS| No learner monitoring of synchronization. No data transfer transparency | Change of LRS/LMS| Detection: 1 Occurrence: 2 Severity: 3 Criticality: 6| |
+| Error-Scenario_13  | synchronize PLRS data with external LRS (regular push) | Make sure that synchronization has been successful| Distorted data| No documentation | Detection: 1 Occurrence: 2 Severity: 4 Criticality: 8| |
+| Error-Scenario_14  | synchronize PLRS data with external LRS (regular push) | Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction | Distorted data  | Errors in the synchronization| Detection: 7 Occurrence: 3 Severity: 7 Criticality: 147| Have an error message|
 
 ## Third Party Components & Licenses
 
@@ -724,6 +723,20 @@ description: Read a single xAPI Statement or multiple xAPI Statements.
 
 [See API answers](https://openfun.github.io/ralph/latest/features/api/)
 
+## Connexion with Prometheus-X
+
+### Personal Data Intermediary
+As the PLRS involves the exchange of personal data, we need to include the PDI in the usage flow.
+When installing a PLRS, users must enter their PDI, or they will be redirected to the PDI account creation area.
+On this page, they will be able to consent to the exchange of their data with target organizations.
+In this PDI space, the user can also initiate data exchange by clicking on the “export data” button in the organization space (e.g. “export my data from the Prof en Poche LMS”).
+
+
+### Prometheus-X Dataspace Connector
+In order to manage PLRS (1 PLRS per user) with the PDC, we are going to install a single PDC to ensure secure data exchange between the various PLRS.
+
+The PDC will contain cozy identifiers (e.g. https://laurianemarxer-home.mycozy.cloud) associated with PDI identifiers (e.g. 39e2462d-db9f-4d47-9786-b09e2bcc3f45).
+With this information, the PDC sends the dataset to the corresponding data space.
 
 ## Test Specification
 
@@ -753,8 +766,8 @@ The PLRS testing strategy will focus on ensuring the accuracy, reliability, and 
 
 We will run manual and automatic tests.
 
-### Validate requirements
-Requirements validation tests
+### Validate requirements and potential risks
+Tests to validate requirements and potential risks.
 
 | Verified by scenario| Description | Test | Status |
 |---|---|---|---|
@@ -762,30 +775,23 @@ Requirements validation tests
 | BB-SC-PLRS-02 | Consent must be asked and verified in less than 30s | Counting exchange time | Not tested yet |
 | BB-SC-PLRS-03 |The PLRS must check with the contract manager through the Dataspace connector if a contract for the data provider or the data consumer (The LMS for functionality 1 and 2) | try to provoke a data exchange without a contract | Not tested yet |
 | BB-SC-PLRS-04 | Contract must be asked and verified in less than 30s |  Verfified time counting  | Not tested yet |
-| BB-SC-PLRS-05 | BB must send the individual's consent profile when the PLRS asks to adjust what and when they are tracked: all-time connection, only on weekends, certain keywords, etc. | unit test  | Not tested yet |
-| BB-SC-PLRS-06 | BB must update the individual's consent profile to PLRS when there are changes | unit test   | Not tested yet |
-| BB-SC-PLRS-08 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS | Try to run various algorithm  | Not tested yet  |
-| BB-SC-PLRS-09 | Running the algorithm must be done in less than 2 min |  Counting time to run the algorithm   | Not tested yet  |
-| Error-Scenario_1 | Data may be lost during migration |  Check the PLRS for visible statements   | Not tested yet  |
-| Error-Scenario_2 |LMS statements are not in xAPI format |  Check the PLRS for visible statements. Do traces of other formats get through?   | Not tested yet  |
-| Error-Scenario_3 | Data could be transmitted to other non-targeted LRSs |  Check statement output   | Not tested yet  |
-| Error-Scenario_4 | The same data can be exported several times |  Check the LRS consumer for visible statements   | Not tested yet  |
+| BB-SC-PLRS-05 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS | unit test  | Not tested yet |
+| BB-SC-PLRS-06 | Running the algorithm must be done in less than 2 min (times TBD |  Verfified time counting  | Not tested yet |
+| Error-Scenario_2 |LMS statements are not in xAPI format|Send traces not in xAPI format| Not tested yet  |
+| Error-Scenario_3 | Data could be transmitted to other non-targeted LRSs |  Check statement output   | Validate : error message  |
+| Error-Scenario_4 | The same data can be exported several times |  Make sure that duplicates are only counted once on the graphs   | Not tested yet  |
 | Error-Scenario_5 | The PLRS doesn't have enough storage space for all statements| Check the storage of PLRS   | Not tested yet  |
 | Error-Scenario_6 | The system may require downtime for large imports/exports |  Check the LRS for visible statements when we import/export a large file   | Not tested yet  |
 | Error-Scenario_8 | Poorly designed graphics |  conduct quantitative and qualitative tests  | Not tested yet  |
 | Error-Scenario_9 | Wrong design choices: colors, shapes, ... |  conduct quantitative and qualitative tests  | Not tested yet  |
-| Error-Scenario_10 | The possibility of data conflicts can compromise information integrity |  Check the PLRS for visible statements, unit test   | Not tested yet  |
-| Error-Scenario_11| Synchronization processes can consume a lot of resources |  Check the PLRS for visible statements, unit test   | Not tested yet  |
-| Error-Scenario_12| The synchronization process can require downtime that affects system availability, especially when large quantities of data need to be synchronized. |  Check the LRS for visible statements when we synchronize a large file    | Not tested yet  |
-| Error-Scenario_14| Make sure that synchronization has been successful |  Check the PLRS for visible statements   | Not tested yet  |
-| Error-Scenario_15| Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction |  Check the PLRS for visible statements, unit test   | Not tested yet  |
+| Error-Scenario_14| Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction |  Unit test   | Not tested yet  |
 
 #### Manual Scenario
 
 
 
 Using the personas, user stories, user flow, and data flow from the DAPO-X use case, we established several test scenarios.
-For your information, the tests will be extended in the future.
+For the tests, we decided to use an inokufu learning platform Constellation. He owns it, so we will be able to see the results on the LRS.
 
 **User triggers in Constellation the transfer of their data from Constellation to PLRS. It is a one time transfer.**
 
@@ -866,20 +872,6 @@ The user has given access to his data to the school's LRS (https://XXX.com/data/
 
 Validation : This scenario is validated if the school's LRS display statements of learning.
 
-
-### Automatic Test
-
-
-
-**Auto1: Transfer test**
-
-- Automatic transfer of learning statements once a week.
-
-
-
-**Auto2: Scalability test**
-
-- Automatic transfer of learning statements 1 time per week, 1 time per day, 2 times per day.
 
 
 ### UI test (where relevant)
