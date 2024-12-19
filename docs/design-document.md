@@ -8,11 +8,11 @@ A personal LRS can be considered as a "personal cloud" service, as it allows ind
 
 Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
 
-![Cozy store](https://github.com/Prometheus-X-association/plrs/assets/129832540/54e17b27-27e3-4791-be1f-f3ea78e188e2)
+![Cozy store](Images/fig1.jpg)
 
-![Cosy store - PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/89f5b741-6d72-4368-b04c-cbd621b1bdd3)
+![Cosy store - PLRS](Images/fig2.jpg)
 
-![PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/23e04cd1-59d8-40d4-a3ce-2bdcd615be96)
+![PLRS](Images/fig3.jpg)
 
 
 ## Technical usage scenarios & Features
@@ -880,11 +880,11 @@ Validation : This scenario is validated if the school's LRS display statements o
 
 Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
 
-![Cozy store](https://github.com/Prometheus-X-association/plrs/assets/129832540/54e17b27-27e3-4791-be1f-f3ea78e188e2)
+![Cozy store](Images/fig1.jpg)
 
-![Cosy store - PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/89f5b741-6d72-4368-b04c-cbd621b1bdd3)
+![Cosy store - PLRS](Images/fig2.jpg)
 
-![PLRS](https://github.com/Prometheus-X-association/plrs/assets/129832540/23e04cd1-59d8-40d4-a3ce-2bdcd615be96)
+![PLRS](Images/fig3.jpg)
 
 
 ## Partners & roles
@@ -906,4 +906,4 @@ The PLRS will be used in the service chain :
 PDC : Prometheus-X Dataspace Connector
 
 - Decentralized AI training: Training of trustworthy AI models
-  ![BB Service chains - Decentralized training](https://github.com/user-attachments/assets/e54b5409-8d7a-45e3-bc56-54b7d8738417)
+  ![BB Service chains - Decentralized training](Images/fig4.png)
