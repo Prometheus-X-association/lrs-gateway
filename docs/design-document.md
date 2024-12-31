@@ -199,6 +199,7 @@ In a Personal Learning Record Store (PLRS), the input and output processes revol
 The Personal Learning Record Store is designed to accommodate a wide range of learning traces, with the fundamental requirement being that they adhere to the xAPI format. Unlike systems that may require specific types of traces, our approach is more flexible, accepting any learning-related data as long as it is structured according to the xAPI specification. This inclusivity ensures that we capture a diverse array of learning activities, providing a comprehensive view of learner interactions and experiences. However, it's important to note that currently we do not have mechanisms in place to verify the authenticity of whether a trace is indeed in the xAPI format. This means that while we are open to receiving various types of learning data, ensuring its proper format relies on the accurate implementation of xAPI by data providers. The data sent can be a rating for an evaluation, a search, access to a page, etc. Each piece of information, no matter how small, is an indication of learning.
 
 [More details on xAPI statement implementation](https://xapi.com/statements-101/)
+[More details on xAPI statement in Cozy (doctype)](https://github.com/inokufu/cozy-doctypes/blob/docs/io.cozy.learningrecords/docs/io.cozy.learningrecords.md)
 
 [Example of JSON file](https://github.com/Prometheus-X-association/plrs/blob/main/data/statements.json.gz)
 
@@ -786,7 +787,64 @@ Tests to validate requirements and potential risks.
 | Error-Scenario_9 | Wrong design choices: colors, shapes, ... |  conduct quantitative and qualitative tests  | Not tested yet  |
 | Error-Scenario_14| Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction |  Unit test   | Not tested yet  |
 
-[View all unit tests](https://github.com/Prometheus-X-association/plrs/tree/main/tests)
+### Manual LRS tests 
+Each LRS function (API link between cozy cloud database and LRS provider/consumer)
+[View all tests](https://github.com/Prometheus-X-association/plrs/tree/main/tests)
+
+#### Authentication
+
+The API server supports the following authentication methods:
+- HTTP basic authentication
+- OpenID Connect authentication
+- CozyStack authentication via api key
+
+Base scenario : The user sends a request on `GET /whoami`
+
+For each method, the system tests that :
+- if the request lacks valid authentication credentials, the server should return an `HTTP 401 Unauthorized` client error response
+- if the request contains valid authentication credentials, the server should return an `HTTP 200 OK` successful response and corresponding user data
+
+#### Statements
+
+##### Fetch a single Statement or multiple Statements
+
+Base scenario : The user sends a request on `GET /xAPI/statements/`
+
+The system tests that : 
+- given 2 users A and B, traces written by authority A can only be read by user A
+- all filters are working as expected (get by statementId, agent, verb, activity, since timestamp, until timestamp)
+- pagination is working as expected (in conjonction with the filters)
+- the server reacts well if no statement is found
+- the server reacts well if one or more query parameters are invalid
+
+##### Store a single Statement with a given id
+
+Base scenario :  The user sends a request `PUT /xAPI/statements/` to post statement as json data
+
+The system tests that:
+- given a valid statement, the statement is stored and can be fetched
+- if missing, `timestamp` and `stored` property are automatically added  
+- if the server receives a statement with a statementId that it already has a Statement for, it does not make any modification to the statement :
+	- if the received statement and the stored statement are equivalent, it returns an `HTTP 204 No Content` response
+	- else it returns an `HTTP 409 Conflict` response
+- the server reacts well in case of database failure
+- the user has the necessary authorizations to write a statement
+
+##### Store a Statement or a set of Statements
+
+Base scenario : The user sends a request `POST /xAPI/statements/` to one or multiple statements as json data
+
+The system tests that:
+- given a valid statement, the statement is stored and can be fetched
+- given a list of one or multiple valid statements, the statements are stored and can be fetched
+- if missing, `timestamp` and `stored` property are automatically added  
+- if the server receives one or multiple statements with a statementId that it already has a Statement for, it does not make any modification to the corresponding statements : 
+	- if the received statements and the stored statements are equivalent, it stores all non existing statements
+	- else it returns an `HTTP 409 Conflict` response
+- the server reacts well in case of database failure
+- the user has the necessary authorizations to write a statement
+
+
 
 #### Manual Scenario
 
