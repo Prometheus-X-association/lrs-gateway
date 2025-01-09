@@ -1,7 +1,31 @@
 # Personal Learning Record Store BB
 The Personal Learning Record Store (PLRS) service is a cloud-based platform that empowers individuals to store and manage their learning records centrally. Unlike traditional Learning Record Stores (LRS) owned by training organizations, a PLRS is directly owned by the learner, providing unparalleled control over their personal learning data. With PLRS, users can easily access, download, and reuse their learning records, enhancing data portability and GDPR compliance. This service not only tracks learning activities, achievements, and progress but also facilitates secure and private sharing of this information when desired. Embrace the future of learning with a PLRS—your personal cloud for lifelong education.
 
+## Design Document
 See the design document [here](docs/design-document.md).
+
+## Building instructions
+_Describe how to build the BB._
+
+E.g.: `docker build -t <bb name>:latest .` or `npm install` 
+
+## Running instructions
+_Describe how to run the BB._
+
+E.g.: `docker compose up` or `npm run`
+
+## Example usage
+_Describe how to check some basic functionality of the BB._
+E.g.:
+
+Send the following requests to the designated endpoints:
+| Endpoint      | Example input | Expected output   |
+| ------------- | ------------- | ----------------- |
+| /hello        | World         | 200, Hello World! |
+|               |               |                   |
+|               |               |                   |
+
+---
 
 <p align="center">
   <a href="https://openfun.github.io/ralph"><img src="https://raw.githubusercontent.com/openfun/logos/main/ralph/ralph-color-dark.png" alt="Ralph logo" width="400"></a>
