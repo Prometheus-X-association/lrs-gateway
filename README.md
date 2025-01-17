@@ -5,89 +5,15 @@ The Personal Learning Record Store (PLRS) service is a cloud-based platform that
 See the design document [here](docs/design-document.md).
 
 ## Building instructions
-_Describe how to build the BB._
 
-E.g.: `docker build -t <bb name>:latest .` or `npm install` 
+To build the project, run:
+
+```bash
+docker compose build 
+```
 
 ## Running instructions
-_Describe how to run the BB._
 
-E.g.: `docker compose up` or `npm run`
-
-## Example usage
-_Describe how to check some basic functionality of the BB._
-E.g.:
-
-Send the following requests to the designated endpoints:
-| Endpoint      | Example input | Expected output   |
-| ------------- | ------------- | ----------------- |
-| /hello        | World         | 200, Hello World! |
-|               |               |                   |
-|               |               |                   |
-
----
-
-<p align="center">
-  <a href="https://openfun.github.io/ralph"><img src="https://raw.githubusercontent.com/openfun/logos/main/ralph/ralph-color-dark.png" alt="Ralph logo" width="400"></a>
-</p>
-
-<p align="center">
-    <em>Ralph, the ultimate Learning Record Store (and more!) for your learning analytics</em>
-</p>
-
-<p align="center">
-<a href="https://circleci.com/gh/openfun/ralph/tree/main">
-    <img src="https://img.shields.io/circleci/build/gh/openfun/ralph/main?label=Tests&logo=circleci" alt="Tests Status">
-</a>
-<a href="https://pypi.org/project/ralph-malph">
-    <img src="https://img.shields.io/pypi/v/ralph-malph?label=PyPI+package" alt="PyPI package version">
-</a>
-<a href="https://pypi.org/project/ralph-malph">
-    <img src="https://img.shields.io/pypi/pyversions/ralph-malph?label=Python" alt="Python versions supported">
-</a>
-<a href="https://hub.docker.com/r/fundocker/ralph/tags">
-    <img src="https://img.shields.io/docker/v/fundocker/ralph/latest?label=Docker+image" alt="Docker image version">
-</a>
-<a href="https://hub.docker.com/r/openfuncharts/ralph/tags">
-    <img src="https://img.shields.io/docker/v/openfuncharts/ralph?label=Helm+chart&color=blue" alt="Helm chart version">
-</a>
-<a href="https://discord.gg/vYx6YWxJCS">
-    <img src="https://img.shields.io/discord/1082704478463082496?label=Discord&logo=discord&style=shield" alt="Discord">
-</a>
-</p>
-
----
-
-**Documentation**: [https://openfun.github.io/ralph](https://openfun.github.io/ralph)
-
-**Source Code**: [https://github.com/openfun/ralph](https://github.com/openfun/ralph)
-
----
-
-Ralph is a toolbox for your learning analytics, it can be used as a:
-
-- **[LRS](https://en.wikipedia.org/wiki/Learning_Record_Store)**, a HTTP API server to collect xAPI statements (learning events), following the [ADL LRS standard](https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#partthree)
-- **command-line interface** (CLI), to build data pipelines the UNIX-way™️,
-- **library**, to fetch learning events from various backends, (de)serialize or
-    convert them from and to various standard formats such as
-    [xAPI](https://adlnet.gov/projects/xapi/), or
-    [openedx](https://docs.openedx.org/en/latest/developers/references/internal_data_formats/tracking_logs/index) html
-
-## ⚡️ Quick start guide: Run the LRS server
-
-> Preliminary notes:
->
-> 1. [`curl`](https://curl.se), [`jq`](https://stedolan.github.io/jq/) and
->    [`docker compose`](https://docs.docker.com/compose/) are required to run
->    some commands of this tutorial. Make sure they are installed first.
->
-> 2. In order to run the Elasticsearch backend locally on GNU/Linux operating
->    systems, ensure that your virtual memory limits are not too low and
->    increase them (temporally) if needed by typing this command from your
->    terminal (as `root` or using `sudo`): `sysctl -w vm.max_map_count=262144`
->
-> Reference:
-> https://www.elastic.co/guide/en/elasticsearch/reference/master/vm-max-map-count.html
 
 To bootstrap a test environment on your machine, clone this project first and
 run the `bootstrap` Makefile target:
@@ -141,8 +67,7 @@ curl -Lk \
     http://localhost:8100/xAPI/statements/
 ```
 
-The command above fetches one hundred (100) example xAPI statements from our
-[Potsie](https://github.com/openfun/potsie) project and sends them to the LRS
+The command above fetches one hundred (100) example xAPI statements and sends them to the LRS
 using `curl`.
 
 You can get them back from the LRS using `curl` to query the
@@ -159,80 +84,313 @@ jq
 > Note that using `jq` is optional in this case, it is used to improve response
 > readability. It is not required to install it to run this snippet.
 
-## ⚡️ Quick start guide: Manipulate data with the CLI
 
-### With the Docker image
+## Example usage
 
-Ralph is distributed as a [Docker
-image](https://hub.docker.com/repository/docker/fundocker/ralph). If
-[Docker](https://docs.docker.com/get-docker/) is installed on your machine, it
-can be pulled from DockerHub:
+### POST single statement
 
-```bash
-docker run --pull always --rm fundocker/ralph:latest ralph --help
+#### Endpoint
+
+`POST /xAPI/statements/`
+
+#### Example input
+
+```json
+{
+    "id": "12345678-1234-5678-1234-567812345678",
+    "actor":{
+        "mbox":"mailto:xapi@adlnet.gov"
+    },
+    "verb":{
+        "id":"http://adlnet.gov/expapi/verbs/created",
+        "display":{
+            "en-US":"created"
+        }
+    },
+    "object":{
+        "id":"http://example.adlnet.gov/xapi/example/activity"
+    },
+    "timestamp": "2024-12-31T12:00:00.000000"
+}
 ```
 
-### With the Python package
+#### Expected output
 
-Ralph is distributed as a standard python package; it can be installed _via_
-`pip` or any other python package manager (_e.g._ Poetry, Pipenv, etc.):
+HTTP response status code: `200 OK`
 
-```bash
-# Install the full package
-pip install \
-    ralph-malph[full]
-
-# Install only the core package (library usage without backends, CLI and LRS)
-pip install ralph-malph
+```json
+["12345678-1234-5678-1234-567812345678"]
 ```
 
-If you installed the full package (including the CLI, LRS and supported
-backends), the `ralph` command should be available in your `PATH`. Try to
-invoke the program usage thanks to the `--help` flag:
+### POST multiple statements
 
-```bash
-ralph --help
+#### Endpoint
+
+`POST /xAPI/statements/`
+
+#### Example input
+
+```json
+[
+    {
+        "id": "12345678-1234-5678-1234-567812345678",
+        "actor":{
+            "mbox":"mailto:xapi@adlnet.gov"
+        },
+        "verb":{
+            "id":"http://adlnet.gov/expapi/verbs/created",
+            "display":{
+                "en-US":"created"
+            }
+        },
+        "object":{
+            "id":"http://example.adlnet.gov/xapi/example/activity"
+        },
+        "timestamp": "2024-12-31T12:00:00.000000"
+    },
+    {
+        "id": "876543218765-4321-8765-4321-87654321",
+        "actor":{
+            "mbox":"mailto:xapi@adlnet.gov"
+        },
+        "verb":{
+            "id":"http://adlnet.gov/expapi/verbs/attended",
+            "display":{
+                "en-US":"attended"
+            }
+        },
+        "object":{
+            "id":"http://example.adlnet.gov/xapi/example/meeting"
+        },
+        "timestamp": "2025-01-01T12:00:00.000000"
+    },
+
+]
 ```
 
-You should see a list of available commands and global flags for `ralph`. Note
-that each command has its own usage that can be invoked _via_:
+#### Expected output
 
-```bash
-ralph COMMAND --help
+HTTP response status code: `200 OK`
+
+```json
+["12345678-1234-5678-1234-567812345678", "876543218765-4321-8765-4321-87654321"]
 ```
 
-> You should substitute `COMMAND` by the target command, _e.g._ `list`, to see
-> its usage.
+### PUT single statement
 
-## Migrating
+#### Endpoint
 
-Some major version changes require updating persistence layers. Check out the [migration guide](https://github.com/openfun/ralph/blob/main/UPGRADE.md) for more information.
+`PUT /xAPI/statements/`
 
-## Contributing
+#### Example input
 
-This project is intended to be community-driven, so please, do not hesitate to
-get in touch if you have any question related to our implementation or design
-decisions.
-
-We try to raise our code quality standards and expect contributors to follow
-the recommendations from our
-[handbook](https://handbook.openfun.fr).
-
-## Useful commands
-
-
-You can explore all available rules using:
-
-```bash
-make help
+```json
+{
+    "id": "12345678-1234-5678-1234-567812345678",
+    "actor":{
+        "mbox":"mailto:xapi@adlnet.gov"
+    },
+    "verb":{
+        "id":"http://adlnet.gov/expapi/verbs/created",
+        "display":{
+            "en-US":"created"
+        }
+    },
+    "object":{
+        "id":"http://example.adlnet.gov/xapi/example/activity"
+    },
+    "timestamp": "2024-12-31T12:00:00.000000"
+}
 ```
-but here are some of them:
 
-- Bootstrap the project: `make bootstrap`
-- Run tests: `make test`
-- Run all linters: `make lint`
-- If you add new dependencies to the project, you will have to rebuild the Docker
-image (and the development environment): `make down && make bootstrap`
+#### Expected output
+
+HTTP response status code: `204 No Content`
+
+```json
+["12345678-1234-5678-1234-567812345678"]
+```
+
+### GET all statements
+
+#### Endpoint
+
+`GET /xAPI/statements/`
+
+#### Expected output
+
+```json
+[
+    {
+        "id": "12345678-1234-5678-1234-567812345678",
+        "actor":{
+            "mbox":"mailto:xapi@adlnet.gov"
+        },
+        "verb":{
+            "id":"http://adlnet.gov/expapi/verbs/created",
+            "display":{
+                "en-US":"created"
+            }
+        },
+        "object":{
+            "id":"http://example.adlnet.gov/xapi/example/activity"
+        },
+        "timestamp": "2024-12-31T12:00:00.000000"
+    },
+    {
+        "id": "876543218765-4321-8765-4321-87654321",
+        "actor":{
+            "mbox":"mailto:xapi@adlnet.gov"
+        },
+        "verb":{
+            "id":"http://adlnet.gov/expapi/verbs/attended",
+            "display":{
+                "en-US":"attended"
+            }
+        },
+        "object":{
+            "id":"http://example.adlnet.gov/xapi/example/meeting"
+        },
+        "timestamp": "2025-01-01T12:00:00.000000"
+    },
+
+]
+```
+
+### GET statements by id
+
+#### Endpoint
+
+`GET /xAPI/statements/?statementId=12345678-1234-5678-1234-567812345678`
+
+#### Expected output
+
+```json
+{
+    "id": "12345678-1234-5678-1234-567812345678",
+    "actor":{
+        "mbox":"mailto:xapi@adlnet.gov"
+    },
+    "verb":{
+        "id":"http://adlnet.gov/expapi/verbs/created",
+        "display":{
+            "en-US":"created"
+        }
+    },
+    "object":{
+        "id":"http://example.adlnet.gov/xapi/example/activity"
+    },
+    "timestamp": "2024-12-31T12:00:00.000000"
+}
+```
+
+### GET statements by verb
+
+#### Endpoint
+
+`GET /xAPI/statements/?verb=http%3A%2F%2Fadlnet.gov%2Fexpapi%2Fverbs%2Fcreated`
+
+#### Expected output
+
+```json
+{
+    "id": "12345678-1234-5678-1234-567812345678",
+    "actor":{
+        "mbox":"mailto:xapi@adlnet.gov"
+    },
+    "verb":{
+        "id":"http://adlnet.gov/expapi/verbs/created",
+        "display":{
+            "en-US":"created"
+        }
+    },
+    "object":{
+        "id":"http://example.adlnet.gov/xapi/example/activity"
+    },
+    "timestamp": "2024-12-31T12:00:00.000000"
+}
+```
+
+### GET statements by activity
+
+#### Endpoint
+
+`GET /xAPI/statements/?activity=http%3A%2F%2Fexample.adlnet.gov%2Fxapi%2Fexample%2Fmeeting`
+
+#### Expected output
+
+```json
+{
+    "id": "876543218765-4321-8765-4321-87654321",
+    "actor":{
+        "mbox":"mailto:xapi@adlnet.gov"
+    },
+    "verb":{
+        "id":"http://adlnet.gov/expapi/verbs/attended",
+        "display":{
+            "en-US":"attended"
+        }
+    },
+    "object":{
+        "id":"http://example.adlnet.gov/xapi/example/meeting"
+    },
+    "timestamp": "2025-01-01T12:00:00.000000"
+}
+```
+
+### GET statements since
+
+#### Endpoint
+
+`GET /xAPI/statements/?since=2025-01-01T09:00:00.000000`
+
+#### Expected output
+
+```json
+{
+    "id": "876543218765-4321-8765-4321-87654321",
+    "actor":{
+        "mbox":"mailto:xapi@adlnet.gov"
+    },
+    "verb":{
+        "id":"http://adlnet.gov/expapi/verbs/attended",
+        "display":{
+            "en-US":"attended"
+        }
+    },
+    "object":{
+        "id":"http://example.adlnet.gov/xapi/example/meeting"
+    },
+    "timestamp": "2025-01-01T12:00:00.000000"
+}
+```
+
+### GET statements until
+
+#### Endpoint
+
+`GET /xAPI/statements/?until=2025-01-01T09:00:00.000000`
+
+#### Expected output
+
+```json
+{
+    "id": "12345678-1234-5678-1234-567812345678",
+    "actor":{
+        "mbox":"mailto:xapi@adlnet.gov"
+    },
+    "verb":{
+        "id":"http://adlnet.gov/expapi/verbs/created",
+        "display":{
+            "en-US":"created"
+        }
+    },
+    "object":{
+        "id":"http://example.adlnet.gov/xapi/example/activity"
+    },
+    "timestamp": "2024-12-31T12:00:00.000000"
+}
+```
 
 ## License
 
