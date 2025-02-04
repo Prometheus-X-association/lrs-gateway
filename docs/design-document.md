@@ -763,29 +763,36 @@ The PLRS testing strategy will focus on ensuring the accuracy, reliability, and 
 
 ### Methodology
 
-
-
-We will run manual and automatic tests.
+Summary of test :
+- Validate requirements and potential risks
+- Unit test
+- Manual LRS test
+- Manual usage scenario
+- UX/UI test
 
 ### Validate requirements and potential risks
 Tests to validate requirements and potential risks.
 
-| Verified by scenario| Description | Test | Status |
-|---|---|---|---|
-| BB-SC-PLRS-01 | Individuals must consent to the export, import, and use of their data in PLRS| Try to export/import the data without consent in the PDI  |  Not tested yet |
-| BB-SC-PLRS-02 | Consent must be asked and verified in less than 30s | Counting exchange time | Not tested yet |
-| BB-SC-PLRS-03 |The PLRS must check with the contract manager through the Dataspace connector if a contract for the data provider or the data consumer (The LMS for functionality 1 and 2) | try to provoke a data exchange without a contract | Not tested yet |
-| BB-SC-PLRS-04 | Contract must be asked and verified in less than 30s |  Verfified time counting  | Not tested yet |
-| BB-SC-PLRS-05 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS | unit test  | Not tested yet |
-| BB-SC-PLRS-06 | Running the algorithm must be done in less than 2 min (times TBD |  Verfified time counting  | Not tested yet |
-| Error-Scenario_2 |LMS statements are not in xAPI format|Send traces not in xAPI format| Not tested yet  |
-| Error-Scenario_3 | Data could be transmitted to other non-targeted LRSs |  Check statement output   | Validate : error message  |
-| Error-Scenario_4 | The same data can be exported several times |  Make sure that duplicates are only counted once on the graphs   | Not tested yet  |
-| Error-Scenario_5 | The PLRS doesn't have enough storage space for all statements| Check the storage of PLRS   | Not tested yet  |
-| Error-Scenario_6 | The system may require downtime for large imports/exports |  Check the LRS for visible statements when we import/export a large file   | Not tested yet  |
-| Error-Scenario_8 | Poorly designed graphics |  conduct quantitative and qualitative tests  | Not tested yet  |
-| Error-Scenario_9 | Wrong design choices: colors, shapes, ... |  conduct quantitative and qualitative tests  | Not tested yet  |
-| Error-Scenario_14| Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction |  Unit test   | Not tested yet  |
+| Verified by scenario| Description | Prerequisites | Test | Status |
+|---|---|---|---|---|
+| BB-SC-PLRS-01 | Individuals must consent to the export, import, and use of their data in PLRS| The user has an account configured on the plrs. He has an account configured on the PDI. He does not consent to the use of his data. | Try to export/import the data without consent in the PDI  |  Not tested yet |
+| BB-SC-PLRS-02 | Consent must be asked and verified in less than 30s | The user has an account configured on the plrs. He has an account configured on the PDI. | Counting exchange time | Not tested yet |
+| BB-SC-PLRS-03 |The PLRS must check with the contract manager through the Dataspace connector if a contract for the data provider or the data consumer (The LMS for functionality 1 and 2) | The user has an account configured on the plrs. He has an account configured on the PDI.The organization from which the user wants to extract data has no contract with the Dapo-X use case.| try to provoke a data exchange without a contract | Not tested yet |
+| BB-SC-PLRS-04 | Contract must be asked and verified in less than 30s | The user has an account configured on the plrs. He has an account configured on the PDI. The organization from which the user wants to extract data has a contract with the Dapo-X use case.|  Verfified time counting  | Not tested yet |
+| BB-SC-PLRS-05 | PLRS should be able to run algorithm shared by BB Decentralized AI training, locally on the data in the PLRS || unit test  | Not tested yet |
+| BB-SC-PLRS-06 | Running the algorithm must be done in less than 2 min (times TBD) | | Verfified time counting  | Not tested yet |
+| Error-Scenario_2 |LMS statements are not in xAPI format| The user has an account configured on the plrs. He has an account configured on the PDI. The organization from which the user wants to extract data has a contract with the Dapo-X use case.|Send traces not in xAPI format| Not tested yet  |
+| Error-Scenario_3 | Data could be transmitted to other non-targeted LRSs | The user has an account configured on the plrs. He has an account configured on the PDI. The organization from which the user wants to extract data has a contract with the Dapo-X use case. |  Check statement output   | Validate : error message  |
+| Error-Scenario_4 | The same data can be exported several times | The user has an account configured on the plrs. He has an account configured on the PDI. The organization from which the user wants to extract data has a contract with the Dapo-X use case.|  Make sure that duplicates are only counted once on the graphs   | Not tested yet  |
+| Error-Scenario_5 | The PLRS doesn't have enough storage space for all statements | The user has an account configured on the plrs| Check the storage of PLRS   | Not tested yet  |
+| Error-Scenario_6 | The system may require downtime for large imports/exports | The user has an account configured on the plrs. He has an account configured on the PDI. The organization from which the user wants to extract data has a contract with the Dapo-X use case. |  Check the LRS for visible statements when we import/export a large file   | Not tested yet  |
+| Error-Scenario_8 | Poorly designed graphics | The user has an account configured on the plrs. |  conduct quantitative and qualitative tests  | Not tested yet  |
+| Error-Scenario_9 | Wrong design choices: colors, shapes, ...  | The user has an account configured on the plrs.|  conduct quantitative and qualitative tests  | Not tested yet  |
+| Error-Scenario_14| Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction | The user has an account configured on the plrs. He has an account configured on the PDI. The organization from which the user wants to extract data has a contract with the Dapo-X use case. |  Unit test   | Not tested yet  |
+
+### Unit test
+
+We performed unit tests on the entire flow. [Here are all the tests](https://github.com/Prometheus-X-association/plrs/tree/main/tests).
 
 ### Manual LRS tests 
 Each LRS function (API link between cozy cloud database and LRS provider/consumer)
@@ -846,9 +853,7 @@ The system tests that:
 
 
 
-#### Manual Scenario
-
-
+### Manual Scenario
 
 Using the personas, user stories, user flow, and data flow from the DAPO-X use case, we established several test scenarios.
 For the tests, we decided to use an inokufu learning platform Constellation. He owns it, so we will be able to see the results on the LRS.
@@ -934,7 +939,7 @@ Validation : This scenario is validated if the school's LRS display statements o
 
 
 
-### UI test (where relevant)
+### UX/UI test (where relevant)
 
 Please note that the following visuals are intended as projections only. UX/UI work will be carried out later in the process.
 
