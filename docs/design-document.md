@@ -765,8 +765,7 @@ The PLRS testing strategy will focus on ensuring the accuracy, reliability, and 
 
 Summary of test :
 - Validate requirements and potential risks
-- Unit test
-- Manual LRS test
+- Manual/unit LRS test
 - Manual usage scenario
 - UX/UI test
 
@@ -790,11 +789,7 @@ Tests to validate requirements and potential risks.
 | Error-Scenario_9 | Wrong design choices: colors, shapes, ...  | The user has an account configured on the plrs.|  conduct quantitative and qualitative tests  | Not tested yet  |
 | Error-Scenario_14| Errors in the synchronization process can lead to complete synchronization failures, requiring manual diagnosis and correction | The user has an account configured on the plrs. He has an account configured on the PDI. The organization from which the user wants to extract data has a contract with the Dapo-X use case. |  Unit test   | Not tested yet  |
 
-### Unit test
-
-We performed unit tests on the entire flow. [Here are all the tests](https://github.com/Prometheus-X-association/plrs/tree/main/tests).
-
-### Manual LRS tests 
+### Manual/unit LRS tests 
 Each LRS function (API link between cozy cloud database and LRS provider/consumer)
 [View all tests](https://github.com/Prometheus-X-association/plrs/tree/main/tests)
 
