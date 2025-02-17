@@ -392,6 +392,16 @@ HTTP response status code: `204 No Content`
 }
 ```
 
+## Unit testing
+### Setup test environment
+### Run tests
+### Expected results
+
+## Component-level testing
+### Setup test environment
+### Run tests
+### Expected results
+
 ## License
 
 This work is released under the MIT License (see [LICENSE](./LICENSE.md)).
