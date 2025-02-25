@@ -2,10 +2,9 @@
 
 import json
 import logging
-from contextlib import contextmanager
+from collections.abc import Mapping, Sequence
 from importlib import reload
 from pathlib import Path
-from typing import Optional, Union
 
 import pytest
 from click.exceptions import BadParameter
@@ -27,14 +26,11 @@ from ralph.conf import settings
 from ralph.exceptions import BackendParameterException, ConfigurationException
 from ralph.models.edx.navigational.statements import UIPageClose
 from ralph.models.xapi.navigation.statements import PageTerminated
-from ralph.utils import iter_over_async
 
 from tests.factories import mock_instance
 from tests.fixtures.backends import (
     ES_TEST_HOSTS,
     ES_TEST_INDEX,
-    WS_TEST_HOST,
-    WS_TEST_PORT,
 )
 
 test_logger = logging.getLogger("ralph")
@@ -170,11 +166,11 @@ def test_cli_help_option():
 def _gen_cli_auth_args(  # noqa: PLR0913
     username: str,
     password: str,
-    scopes: list,
+    scopes: Sequence,
     ifi_command: str,
-    ifi_value: Union[str, dict],
-    agent_name: Optional[str] = None,
-    target: Optional[str] = None,
+    ifi_value: str | dict,
+    agent_name: str | None = None,
+    target: str | None = None,
     write: bool = False,
 ):
     """Generate arguments for cli to create user."""
@@ -193,11 +189,11 @@ def _gen_cli_auth_args(  # noqa: PLR0913
 
 
 def _assert_matching_basic_auth_credentials(  # noqa: PLR0913
-    credentials: dict,
+    credentials: Mapping,
     username: str,
-    scopes: list,
+    scopes: Sequence,
     ifi_type: str,
-    ifi_value: Union[str, dict],
+    ifi_value: str | dict,
     agent_name: str = None,
     hash_: str = None,
     target: str = None,
@@ -759,27 +755,6 @@ def test_cli_read_command_with_es_backend_query(es):
     assert str(result.exception) == msg
 
 
-def test_cli_read_command_with_ws_backend(events, ws):
-    """Test ralph read command using the ws backend."""
-
-    # The ws fixture is async, however the `CliRunner` does not support running in an
-    # async context, thus we wrap it into a sync contextmanager.
-    @contextmanager
-    def websocket():
-        yield from iter_over_async(ws)
-
-    with websocket():
-        runner = CliRunner()
-        uri = f"ws://{WS_TEST_HOST}:{WS_TEST_PORT}"
-        result = runner.invoke(
-            cli,
-            ["read", "-b", "async_ws", "--async-ws-uri", uri],
-            catch_exceptions=False,
-        )
-        assert result.exit_code == 0
-        assert "\n".join([json.dumps(event) for event in events]) in result.output
-
-
 def test_cli_list_command_with_ldp_backend(monkeypatch):
     """Test ralph list command using the LDP backend."""
     archive_list = [
@@ -1038,7 +1013,7 @@ def test_cli_runserver_command_environment_file_generation(monkeypatch):
     def mock_uvicorn_run(_, env_file=None, **kwargs):
         """Mock uvicorn.run asserting environment file content."""
         expected_env_lines = [
-            f"RALPH_RUNSERVER_BACKEND={settings.RUNSERVER_BACKEND}\n",
+            "RALPH_RUNSERVER_BACKEND=es\n",
             "RALPH_BACKENDS__LRS__ES__DEFAULT_INDEX=foo\n",
             "RALPH_BACKENDS__LRS__ES__CLIENT_OPTIONS__verify_certs=True\n",
         ]

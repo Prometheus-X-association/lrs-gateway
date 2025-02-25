@@ -1,12 +1,7 @@
 """Tests for Ralph's backend utilities."""
 
 import logging
-import sys
-
-if sys.version_info < (3, 10):
-    from importlib_metadata import EntryPoint, EntryPoints, entry_points
-else:
-    from importlib.metadata import EntryPoint, EntryPoints, entry_points
+from importlib.metadata import EntryPoint, EntryPoints, entry_points
 
 from ralph.backends.data.async_es import AsyncESDataBackend
 from ralph.backends.data.async_lrs import AsyncLRSDataBackend
@@ -14,6 +9,7 @@ from ralph.backends.data.async_mongo import AsyncMongoDataBackend
 from ralph.backends.data.async_ws import AsyncWSDataBackend
 from ralph.backends.data.base import BaseDataBackend
 from ralph.backends.data.clickhouse import ClickHouseDataBackend
+from ralph.backends.data.cozystack import CozyStackDataBackend
 from ralph.backends.data.es import ESDataBackend
 from ralph.backends.data.fs import FSDataBackend
 from ralph.backends.data.ldp import LDPDataBackend
@@ -31,6 +27,7 @@ from ralph.backends.loader import (
 from ralph.backends.lrs.async_es import AsyncESLRSBackend
 from ralph.backends.lrs.async_mongo import AsyncMongoLRSBackend
 from ralph.backends.lrs.clickhouse import ClickHouseLRSBackend
+from ralph.backends.lrs.cozystack import CozyStackLRSBackend
 from ralph.backends.lrs.es import ESLRSBackend
 from ralph.backends.lrs.fs import FSLRSBackend
 from ralph.backends.lrs.mongo import MongoLRSBackend
@@ -126,6 +123,7 @@ def test_backends_loader_get_cli_backends(monkeypatch):
         "async_mongo": AsyncMongoDataBackend,
         "async_ws": AsyncWSDataBackend,
         "clickhouse": ClickHouseDataBackend,
+        "cozystack": CozyStackDataBackend,
         "es": ESDataBackend,
         "fs": FSDataBackend,
         "ldp": LDPDataBackend,
@@ -134,6 +132,9 @@ def test_backends_loader_get_cli_backends(monkeypatch):
         "s3": S3DataBackend,
         "swift": SwiftDataBackend,
     }
+
+    monkeypatch.undo()
+    get_lrs_backends.cache_clear()
 
 
 def test_backends_loader_get_cli_write_backends():
@@ -144,6 +145,7 @@ def test_backends_loader_get_cli_write_backends():
         "async_lrs": AsyncLRSDataBackend,
         "async_mongo": AsyncMongoDataBackend,
         "clickhouse": ClickHouseDataBackend,
+        "cozystack": CozyStackDataBackend,
         "es": ESDataBackend,
         "fs": FSDataBackend,
         "lrs": LRSDataBackend,
@@ -160,6 +162,7 @@ def test_backends_loader_get_cli_list_backends():
         "async_es": AsyncESDataBackend,
         "async_mongo": AsyncMongoDataBackend,
         "clickhouse": ClickHouseDataBackend,
+        "cozystack": CozyStackDataBackend,
         "es": ESDataBackend,
         "fs": FSDataBackend,
         "ldp": LDPDataBackend,
@@ -196,7 +199,11 @@ def test_backends_loader_get_lrs_backends(monkeypatch):
         "async_es": AsyncESLRSBackend,
         "async_mongo": AsyncMongoLRSBackend,
         "clickhouse": ClickHouseLRSBackend,
+        "cozystack": CozyStackLRSBackend,
         "es": ESLRSBackend,
         "fs": FSLRSBackend,
         "mongo": MongoLRSBackend,
     }
+
+    monkeypatch.undo()
+    get_lrs_backends.cache_clear()

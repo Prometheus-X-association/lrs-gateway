@@ -4,11 +4,12 @@ import hashlib
 import random
 import time
 import uuid
+from collections.abc import Mapping, Sequence
 from datetime import datetime
-from typing import List, Optional, Union
 from uuid import UUID
 
-from ralph.api.auth import AuthBackend
+from ralph.api.auth.basic import get_basic_auth_user
+from ralph.conf import AuthBackend
 from ralph.utils import statements_are_equivalent
 
 from tests.fixtures.auth import AUDIENCE, ISSUER_URI
@@ -32,7 +33,9 @@ def string_is_uuid(string: str):
         return False
 
 
-def assert_statement_get_responses_are_equivalent(response_1: dict, response_2: dict):
+def assert_statement_get_responses_are_equivalent(
+    response_1: Mapping, response_2: Mapping
+):
     """Check that responses to GET /statements are equivalent.
 
     Check that all statements in response are equivalent, meaning that all
@@ -52,7 +55,7 @@ def assert_statement_get_responses_are_equivalent(response_1: dict, response_2: 
     assert len(response_1["statements"]) == len(response_2["statements"])
 
     for statement_1, statement_2 in zip(
-        response_1["statements"], response_2["statements"]
+        response_1["statements"], response_2["statements"], strict=False
     ):
         assert statements_are_equivalent(
             statement_1, statement_2
@@ -74,8 +77,8 @@ def mock_activity(id_: int = 0):
 def mock_agent(
     ifi: str = "mbox",
     id_: int = 1,
-    home_page_id: Optional[int] = None,
-    name: Optional[str] = None,
+    home_page_id: int | None = None,
+    name: str | None = None,
     use_object_type: bool = True,
 ):
     """Create distinct mock agents with a given Inverse Functional Identifier.
@@ -130,11 +133,11 @@ def mock_agent(
 
 
 def mock_statement(
-    id_: Optional[Union[UUID, int]] = None,
-    actor: Optional[Union[dict, int]] = None,
-    verb: Optional[Union[dict, int]] = None,
-    object: Optional[Union[dict, int]] = None,
-    timestamp: Optional[Union[str, int]] = None,
+    id_: UUID | int | None = None,
+    actor: Mapping | int | None = None,
+    verb: Mapping | int | None = None,
+    object: Mapping | int | None = None,
+    timestamp: str | int | None = None,
 ):
     """Generate fake statements with random or provided parameters.
 
@@ -209,8 +212,17 @@ def mock_statement(
     }
 
 
+def configure_env_for_mock_basic_auth(monkeypatch):
+    """Configure environment variables to simulate OIDC use."""
+    monkeypatch.setenv("RUNSERVER_AUTH_BACKENDS", AuthBackend.BASIC.value)
+    monkeypatch.setattr(
+        "ralph.api.auth.settings.RUNSERVER_AUTH_BACKENDS", [AuthBackend.BASIC]
+    )
+    get_basic_auth_user.cache_clear()
+
+
 def configure_env_for_mock_oidc_auth(
-    monkeypatch, runserver_auth_backends: List[AuthBackend] = None
+    monkeypatch, runserver_auth_backends: Sequence[AuthBackend] = None
 ):
     """Configure environment variables to simulate OIDC use."""
 
@@ -231,4 +243,12 @@ def configure_env_for_mock_oidc_auth(
     monkeypatch.setattr(
         "ralph.api.auth.oidc.settings.RUNSERVER_AUTH_OIDC_AUDIENCE",
         AUDIENCE,
+    )
+
+
+def configure_env_for_mock_cozy_auth(monkeypatch):
+    """Configure environment variables to simulate Cozy auth use."""
+    monkeypatch.setenv("RUNSERVER_AUTH_BACKENDS", AuthBackend.COZY.value)
+    monkeypatch.setattr(
+        "ralph.api.auth.settings.RUNSERVER_AUTH_BACKENDS", [AuthBackend.COZY]
     )

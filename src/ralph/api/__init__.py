@@ -1,15 +1,18 @@
 """Main module for Ralph's LRS API."""
 
-from collections.abc import Callable
+import os
+from collections.abc import Callable, Mapping
 from datetime import datetime, timedelta, timezone
 from functools import lru_cache
-from typing import Any, Dict, List, Union
+from typing import Annotated, Any
 from urllib.parse import urlparse
 
 import sentry_sdk
 from fastapi import Depends, FastAPI, Request, status
+from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse, Response
+from pydantic import ValidationError
 
 from ralph.conf import settings
 
@@ -20,12 +23,12 @@ from .routers import health, statements, xapi
 
 
 @lru_cache(maxsize=None)
-def get_health_check_routes() -> List:
+def get_health_check_routes() -> list:
     """Return the health check routes."""
     return [route.path for route in health.router.routes]
 
 
-def filter_transactions(event: Dict, hint) -> Union[Dict, None]:  # noqa: ARG001
+def filter_transactions(event: Mapping, hint) -> dict | None:  # noqa: ARG001
     """Filter transactions for Sentry."""
     url = urlparse(event["request"]["url"])
 
@@ -53,8 +56,8 @@ app.include_router(xapi.router)
 
 @app.get("/whoami")
 async def whoami(
-    user: AuthenticatedUser = Depends(get_authenticated_user),
-) -> Dict[str, Any]:
+    user: Annotated[AuthenticatedUser, Depends(get_authenticated_user)],
+) -> dict[str, Any]:
     """Return the current user's username along with their scopes."""
     return {
         "agent": user.agent.model_dump(mode="json", exclude_none=True),
@@ -68,7 +71,9 @@ async def check_x_experience_api_version_header(
 ) -> Response:
     """Check the headers for the X-Experience-API-Version in every request."""
     # about resource doesn't need the "X-Experience-API-Version" header
-    if not request.url.path == "/xAPI/about":
+    if request.url.path.startswith(
+        settings.XAPI_PREFIX
+    ) and request.url.path != os.path.join(settings.XAPI_PREFIX, "about"):
         # check that request includes X-Experience-API-Version header
         if "X-Experience-API-Version" not in request.headers:
             return JSONResponse(
@@ -124,20 +129,22 @@ async def set_x_experience_api_consistent_through_header(
 
 
 @app.exception_handler(RequestValidationError)
-async def validation_exception_handler(
+async def request_validation_error_handler(
     _: Request, exc: RequestValidationError
 ) -> JSONResponse:
     """Called on invalid request data, return error detail as json response."""
     return JSONResponse(
         status_code=status.HTTP_400_BAD_REQUEST,
-        content={"detail": str(exc.errors())},
+        content=jsonable_encoder({"detail": exc.errors()}),
     )
 
 
-@app.exception_handler(TypeError)
-async def type_exception_handler(_: Request, exc: TypeError) -> JSONResponse:
-    """Called on bad type or value, return error detail as json response."""
+@app.exception_handler(ValidationError)
+async def validation_error_handler(
+    _: Request, exc: ValidationError  # noqa: ARG001
+) -> JSONResponse:
+    """Called on parameter validation error, return generic error message."""
     return JSONResponse(
         status_code=status.HTTP_400_BAD_REQUEST,
-        content={"detail": str(exc)},
+        content={"detail": "An unexpected validation error has occurred."},
     )

@@ -393,14 +393,73 @@ HTTP response status code: `204 No Content`
 ```
 
 ## Unit testing
+
 ### Setup test environment
+
+Build the project : 
+
+```bash
+docker compose build 
+```
+
+Bootstrap the project : 
+
+```bash
+make bootstrap
+```
+
+Run ralph : 
+
+```bash
+make run
+```
+
 ### Run tests
+
+```bash
+bin/pytest --ignore=tests/api 
+```
+
 ### Expected results
 
+```
+1523 passed, 6 skipped, 291 warnings
+```
+
 ## Component-level testing
+
+
 ### Setup test environment
+
+Build the project : 
+
+```bash
+docker compose build 
+```
+
+Bootstrap the project : 
+
+```bash
+make bootstrap
+```
+
+Run ralph : 
+
+```bash
+make run
+```
+
 ### Run tests
+
+```bash
+bin/pytest tests/api 
+```
+
 ### Expected results
+
+```
+422 passed, 342 warnings 
+```
 
 ## License
 

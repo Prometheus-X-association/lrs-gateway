@@ -48,6 +48,7 @@ venv.bak/
 
 # Test & lint
 .coverage
+coverage.xml
 .pytest_cache
 
 # Documentation site
@@ -67,3 +68,9 @@ k3d-storage/
 # VSCode
 .vscode
 .devcontainer
+
+# CozyStack config
+cozy-config/cozy-admin-passphrase
+cozy-config/cozy-auth-token
+cozy-config/vault.enc
+cozy-config/vault.dec

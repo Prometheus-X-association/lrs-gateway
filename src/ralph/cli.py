@@ -4,12 +4,14 @@ import json
 import logging
 import re
 import sys
+from collections.abc import Callable, Mapping
 from inspect import isasyncgen, isclass
 from pathlib import Path
 from tempfile import NamedTemporaryFile
-from typing import Any, Callable, Dict, Optional, Type, Union
+from typing import Any, Type
 
 import bcrypt
+from pydantic import AnyHttpUrl, MongoDsn
 
 try:
     import click
@@ -196,11 +198,11 @@ class JSONStringParamType(click.ParamType):
 class RalphCLI(click.Group):
     """Ralph CLI entrypoint."""
 
-    lazy_commands: Dict[str, Callable] = {}
+    lazy_commands: Mapping[str, Callable] = {}
 
     @classmethod
     def lazy_backends_options(
-        cls, get_backends: Callable, name: Optional[str] = None
+        cls, get_backends: Callable, name: str | None = None
     ) -> Callable:
         """Lazy backend-related options decorator for Ralph commands."""
 
@@ -231,7 +233,7 @@ class RalphCLI(click.Group):
         self.lazy_commands = {}
         return super().list_commands(ctx)
 
-    def get_command(self, ctx, cmd_name) -> Union[click.Command, None]:
+    def get_command(self, ctx, cmd_name) -> click.Command | None:
         """Register lazy command (if it is requested) before calling `get_command`."""
         if cmd_name in self.lazy_commands:
             self.lazy_commands[cmd_name]()
@@ -259,8 +261,8 @@ def cli(verbosity=None):
     """
 
 
-# Once we have a base backend interface we could use Dict[str, Type[BaseBackend]]
-def backends_options(backends: Dict[str, Type], name: Optional[str] = None):
+# Once we have a base backend interface we could use Mapping[str, Type[BaseBackend]]
+def backends_options(backends: Mapping[str, Type], name: str | None = None):
     """Backend-related options decorator for Ralph commands."""
 
     def wrapper(command):
@@ -291,7 +293,7 @@ def backends_options(backends: Dict[str, Type], name: Optional[str] = None):
                     option_kwargs["type"] = HeadersParametersParamType(field_type)
                 elif field_type is Path:
                     option_kwargs["type"] = click.Path()
-                elif field_type is AnyUrl:
+                elif field_type in [AnyUrl, AnyHttpUrl, MongoDsn]:
                     option_kwargs["type"] = AnyUrlParamType()
 
                 command = optgroup.option(option.lower(), **option_kwargs)(command)
