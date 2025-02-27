@@ -1,0 +1,16 @@
+{
+    "id": "2654a37f-32c5-4ebd-a650-655b7df326ec",
+    "actor": {
+        "mbox": "mailto:xapi@adlnet.gov"
+    },
+    "verb": {
+        "id": "http://adlnet.gov/expapi/verbs/played",
+        "display": {
+            "en-US": "played"
+        }
+    },
+    "object": {
+        "id": "http://example.adlnet.gov/xapi/example/game"
+    },
+    "timestamp": "2024-12-31T12:00:00.000000"
+}
