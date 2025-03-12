@@ -12,6 +12,7 @@ See the design document [here](docs/design-document.md).
 - Compatibility with CozyStack backend
 - Use of a dependency management system (uv)
 - Implementation of a CI pipeline with Github Actions
+- [Original Ralph repository](https://github.com/openfun/ralph)
 
 
 ## Building instructions
